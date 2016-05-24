@@ -14,7 +14,6 @@ function createElement () {
 
   for (var key in attrs) {
     const skip = addEvents(el, key, attrs[key])
-    console.log(key, skip)
     if (skip) continue
     attrs.hasOwnProperty(key) && el.setAttribute(key, attrs[key])
   }
