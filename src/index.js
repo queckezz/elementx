@@ -14,7 +14,10 @@ function createElement () {
 
   for (var key in attrs) {
     const skip = addEvents(el, key, attrs[key])
+
+    // don't include event listeners properties in the dom
     if (skip) continue
+
     attrs.hasOwnProperty(key) && el.setAttribute(key, attrs[key])
   }
 
@@ -29,6 +32,7 @@ function createElement () {
 }
 
 function addEvents (el, key, value) {
+  // remove `on` and lowercase event
   const event = key.slice(2, key.length).toLowerCase()
 
   // keep a reference since events are not stored somewhere see
@@ -42,13 +46,21 @@ function addEvents (el, key, value) {
   }
 }
 
-function parseSelector (str) {
-  const matches = str.split(/([\.#]?[^\s#.]+)/)
+/**
+ * Parses the given `selector` into an element with the respective properties
+ * set. This is code was heavily inspired by `hyperscript` and the regex is
+ * directly copied.
+ */
+
+function parseSelector (selector) {
+  const matches = selector.split(/([\.#]?[^\s#.]+)/)
   let node
 
   matches.forEach((match) => {
     const s = match.substring(1, match.length)
     if (!match) return
+
+    if(/^\.|#/.test(match[1])) node = document.createElement('div')
 
     if (!node) {
       node = document.createElement(match)
@@ -62,8 +74,12 @@ function parseSelector (str) {
   return node
 }
 
+/**
+ * Sort the `createElement` arguments into named arguments.
+ */
+
 function getArguments (args) {
-  let captures = { selector: 'div', attrs: {}, children: [] }
+  let captures = { selector: '', attrs: {}, children: [] }
 
   for (var i = args.length - 1; i >= 0; i--) {
     const arg = args[i]

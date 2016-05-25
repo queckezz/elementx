@@ -37,6 +37,11 @@ test('id and class shorthands', (t) => {
   t.end()
 })
 
+test.skip('defaults to a div element', (t) => {
+  const node = h('.title')
+  t.equal(node, '<div class="title"></div>')
+})
+
 test('create nested nodes', (t) => {
   const tree = h('div', [
     h('h1', 'Title'),
