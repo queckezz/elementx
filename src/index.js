@@ -18,7 +18,7 @@ function createElement () {
     attrs.hasOwnProperty(key) && el.setAttribute(key, attrs[key])
   }
 
-  if (children.length == 0) return el
+  if (children.length === 0) return el
 
   children.forEach((child) => {
     if (isString(child)) child = document.createTextNode(child)
@@ -72,7 +72,7 @@ function getArguments (args) {
       captures.children = arg
     } else if (isPlainObject(arg)) {
       captures.attrs = arg
-    } else if (isString(arg) && i == 0) {
+    } else if (isString(arg) && i === 0) {
       captures.selector = arg
     } else {
       captures.children = [arg]
@@ -84,6 +84,6 @@ function getArguments (args) {
 
 function isString (val) { return typeof val === 'string' }
 
-function isPlainObject(o) {
+function isPlainObject (o) {
   return Object(o) === o && Object.getPrototypeOf(o) === Object.prototype
 }

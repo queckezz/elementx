@@ -74,6 +74,9 @@ npm test
 
 [MIT][license-url]
 
+[travis-image]: https://img.shields.io/travis/queckezz/create-dom-tree.svg?style=flat-square
+[travis-url]: https://travis-ci.org/queckezz/create-dom-tree
+
 [version-image]: https://img.shields.io/npm/v/create-dom-tree.svg?style=flat-square
 [version-url]: https://npmjs.org/package/create-dom-tree
 

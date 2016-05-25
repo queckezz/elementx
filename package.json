@@ -4,8 +4,8 @@
   "description": "Create DOM trees using hyperscript like syntax",
   "main": "lib/index.js",
   "scripts": {
-    "lint": "standard",
-    "build": "mkdirp lib && buble src -o lib",
+    "lint": "standard \"src/*.js\" \"test/*.js\"",
+    "prepublish": "npm run lint && npm run test && mkdirp lib && buble src -o lib",
     "release": "xyz",
     "test": "tape test/*.js | tap-spec"
   },

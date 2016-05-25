@@ -49,7 +49,7 @@ test('create nested nodes', (t) => {
 
 test('events', (t) => {
   t.plan(3)
-  const node =  h('button', { onclick: () => t.pass() }, 'click')
+  const node = h('button', { onclick: () => t.pass() }, 'click')
   t.equal(
     '<button>click</button>',
     node.outerHTML,
@@ -70,7 +70,7 @@ test('create node with attributes', (t) => {
 })
 
 test('create nested nodes with all different kinds of combinations', (t) => {
-  const tree = h('div', { class: 'full-width p2'}, [
+  const tree = h('div', { class: 'full-width p2' }, [
     h('h1', 'Some text'),
     h('div', { style: 'background-color: red;' }, [
       h('a', { href: 'http://github.com' }, 'Github')
