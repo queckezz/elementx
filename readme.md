@@ -1,7 +1,9 @@
 
+
 # create-dom-tree
 
-> ![tree](./tree.png) Create DOM trees using hyperscript like syntax.
+> ![tree](./tree.png) Create a DOM tree with ease.
+<br>
 
 [![Build status][travis-image]][travis-url]
 [![NPM version][version-image]][version-url]
@@ -10,6 +12,16 @@
 [![Js Standard Style][standard-image]][standard-url]
 
 This module is intended for use in conjunction with [morphdom](https://github.com/patrick-steele-idem/morphdom) but can be used in any DOM-like environment. It's an alternative to [bel](https://github.com/shama/bel) or [hyperx](https://github.com/substack/hyperx) for those who want to build their DOM trees without template strings or JSX.
+</div>
+
+```js
+div([
+  h1('.bold', 'create-dom-tree'),
+  h2('#subtitle', 'Create a DOM tree with ease'),
+  button({ href: 'http://ghub.io/create-dom-tree' }, 'Open'),
+  ul(['simple', 'functional', 'fast'].map(key => li(key)))
+])
+```
 
 ## Features
 
