@@ -22,13 +22,7 @@
   },
   "author": "queckezz <fabian.eichenberger@gmail.com>",
   "dependencies": {
-    "@f/create-element": "^1.0.1",
     "@f/dom-events": "^1.0.4",
-    "@f/foreach-array": "^1.0.0",
-    "@f/has": "^1.0.1",
-    "@f/is-object": "^1.1.4",
-    "@f/is-string": "^1.1.1",
-    "@f/set-attribute": "^1.0.1",
     "hyperscript-helpers": "^2.1.1"
   },
   "devDependencies": {

@@ -79,7 +79,7 @@ They can be written however you like: `onClick`, `onclick`, `ONCLICK` etc.
 
 ### Lifecycle hooks
 
-This is not the concern of this module and should live in higher-level modules like [yo-yo](https://github.com/maxogden/yo-yo) or [inu](https://github.com/ahdinosaur/inu). If you feel like it should, [open an issue](http://github.com/queckezz/create-dom-tree/issues/new).
+This is not the concern of this module and should live in higher-level modules like [yo-yo](https://github.com/maxogden/yo-yo) or [inu](https://github.com/ahdinosaur/inu). If you feel like it should, [open an issue](http://github.com/queckezz/create-dom-tree/issues/new) to discuss.
 
 ### `createElement()`
 
