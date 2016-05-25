@@ -1,7 +1,7 @@
 
 # create-dom-tree
 
-> Create DOM trees using hyperscript like syntax.
+> ![tree](./tree.png) Create DOM trees using hyperscript like syntax.
 
 [![Build status][travis-image]][travis-url]
 [![NPM version][version-image]][version-url]
@@ -15,6 +15,7 @@ This module is intended for use in conjunction with [morphdom](https://github.co
 
 * Create complex DOM trees with ease
 * Weights only ~1kb in size
+* Functional utilities can be used since it's just functions
 * Works perfectly with [morphdom](https://github.com/patrick-steele-idem/morphdom)
 
 ## Installation
@@ -45,6 +46,30 @@ console.log(tree.outerHTML)
  *   </div>
  * </div>
  */
+```
+
+## Comparison
+
+### `create-dom-tree`
+
+```js
+ul('.items', items.map((item) => li(item.text)))
+```
+
+### `hyperscript`
+
+This traditional syntax is also available through `createElement` from this module
+
+```js
+h('ul.items', items.map((item) => li(item.text)))
+```
+
+### `jsx`
+
+```js
+<ul class='items'>
+  {items.map((item) => <li>{item.title}</li>)}
+</ul>
 ```
 
 ## Guide
@@ -102,11 +127,15 @@ console.log(node.outerHTML)
 
 As of writing this, there is no SVG support yet. This is on the [roadmap](https://github.com/queckezz/create-dom-tree/issues/1)
 
+## External tools
+
+* [html-to-hyperscript](html-to-hyperscript.paqmind.com) - Webservice to convert HTML to hyperscript
+
 ## Differences from `hyperscript`
 
 This module is a lot smaller because its focused on only creating DOM elements. Feel free to built upon this if you feel like needing any of the following features:
 
-* No [obserable](https://github.com/dominictarr/observable) support
+* No [observable](https://github.com/dominictarr/observable) support
 * No default `div` tag since it's not needed with [hyperscript-helpers](https://github.com/ohanhi/hyperscript-helpers)
 
 ```js
@@ -124,6 +153,8 @@ createElement('text') // -> doesn't generate <div>Text</div>
 ## License
 
 [MIT][license-url]
+
+<sub>The icon in the title was created by [Daniel Bruce](https://www.iconfinder.com/icons/80984/structure_icon#size=16) under the [Creative Commons Attribution-Share Alike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/)</sub>
 
 [travis-image]: https://img.shields.io/travis/queckezz/create-dom-tree.svg?style=flat-square
 [travis-url]: https://travis-ci.org/queckezz/create-dom-tree
