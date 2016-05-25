@@ -60,8 +60,6 @@ function parseSelector (selector) {
     const s = match.substring(1, match.length)
     if (!match) return
 
-    if(/^\.|#/.test(match[1])) node = document.createElement('div')
-
     if (!node) {
       node = document.createElement(match)
     } else if (match[0] === '.') {
