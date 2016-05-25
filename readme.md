@@ -9,18 +9,18 @@
 [![License][license-image]][license-url]
 [![Js Standard Style][standard-image]][standard-url]
 
-This module is intended for use in conjunction with [morphdom]() but can be used in any DOM-like environment. It's an alternative to [bel](https://github.com/shama/bel) or [hyperx](https://github.com/substack/hyperx) for those who want to build their DOM trees without template strings or JSX.
+This module is intended for use in conjunction with [morphdom](https://github.com/patrick-steele-idem/morphdom) but can be used in any DOM-like environment. It's an alternative to [bel](https://github.com/shama/bel) or [hyperx](https://github.com/substack/hyperx) for those who want to build their DOM trees without template strings or JSX.
 
 ## Features
 
 * Create complex DOM trees with ease
 * Weights only ~1kb in size
-* Works perfectly with [morphdom]()
+* Works perfectly with [morphdom](https://github.com/patrick-steele-idem/morphdom)
 
 ## Installation
 
 ```bash
-npm install create-dom-tree
+> npm install create-dom-tree
 ```
 
 ## Usage
@@ -118,7 +118,7 @@ createElement('text') // -> doesn't generate <div>Text</div>
 ## Tests
 
 ```bash
-npm test
+> npm test
 ```
 
 ## License
