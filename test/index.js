@@ -7,8 +7,6 @@ const { createElement, div, h1, p, button } = require('../src')
 const tsml = require('tsml')
 const test = require('tape')
 
-console.log(createElement)
-
 const h = createElement
 
 test('create nodes', (t) => {
