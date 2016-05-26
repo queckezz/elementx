@@ -4,6 +4,7 @@
   "description": "Create DOM trees using hyperscript like syntax",
   "main": "lib/index.js",
   "scripts": {
+    "example": "budo ./example/index.js --live --open --dir ./example",
     "lint": "standard \"src/*.js\" \"test/*.js\"",
     "prepublish": "npm run lint && npm run test && mkdirp lib && buble src -o lib",
     "release": "xyz",
@@ -27,8 +28,10 @@
   },
   "devDependencies": {
     "buble": "^0.9.3",
+    "budo": "^8.2.2",
     "jsdom": "^9.2.0",
     "mkdirp": "^0.5.1",
+    "morphdom": "^1.3.1",
     "standard": "^7.0.1",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
