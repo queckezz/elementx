@@ -63,13 +63,13 @@ console.log(tree.outerHTML)
 
 While the syntax differences are subtle, as the the tree grows, these small differences can influence visual noise by a lot.
 
-### helper functions or `create-dom-tree`
+### Helper functions or `create-dom-tree`
 
 ```js
 ul('.items', items.map((item) => li(item.text)))
 ```
 
-### hyperscript
+### Hyperscript
 
 This traditional syntax is also available through `createElement` from this module.
 
@@ -131,7 +131,7 @@ All events are case insensitive so they can be written however style you want: `
 
 I think this is not the concern of this module and should live in higher-level frameworks like [yo-yo](https://github.com/maxogden/yo-yo) or [inu](https://github.com/ahdinosaur/inu). If you feel like it should, feel free to [open up a discussion](http://github.com/queckezz/create-dom-tree/issues/new)
 
-### `createElement()`
+### Use without helper functions
 
 If you want, you can fall back to the traditional `createElement(tag, attributes, children)` instead of the exposed helper functions.
 
