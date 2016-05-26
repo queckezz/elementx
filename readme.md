@@ -11,8 +11,7 @@
 [![License][license-image]][license-url]
 [![Js Standard Style][standard-image]][standard-url]
 
-This module is intended for use in conjunction with [morphdom](https://github.com/patrick-steele-idem/morphdom) but can be used in any DOM-like environment. It's an alternative to [bel](https://github.com/shama/bel) or [hyperx](https://github.com/substack/hyperx) for those who want to build their DOM trees without template strings or JSX.
-</div>
+This module is intended for use in conjunction with [morphdom](https://github.com/patrick-steele-idem/morphdom) but can be used in any DOM-like environment. It's an alternative to [jsx](https://facebook.github.io/react/docs/jsx-in-depth.html) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
 
 ```js
 div([
@@ -26,7 +25,7 @@ div([
 ## Features
 
 * Create complex DOM trees with ease
-* Weights only ~1kb in size
+* Weights only ~1.2kb in size
 * Functional utilities can be used since it's just functions
 * Works perfectly with [morphdom](https://github.com/patrick-steele-idem/morphdom)
 
@@ -60,28 +59,42 @@ console.log(tree.outerHTML)
  */
 ```
 
-## Comparison
+## Syntax comparison
 
-### `create-dom-tree`
+While the syntax differences are subtle, as the the tree grows, these small differences can influence visual noise by a lot.
+
+### helper functions or `create-dom-tree`
 
 ```js
 ul('.items', items.map((item) => li(item.text)))
 ```
 
-### `hyperscript`
+### hyperscript
 
-This traditional syntax is also available through `createElement` from this module
+This traditional syntax is also available through `createElement` from this module.
 
 ```js
 h('ul.items', items.map((item) => li(item.text)))
 ```
 
-### `jsx`
+### JSX
+
+This syntax is a non-standard language addition popularized by facebook. Each `tag` gets converted into a function call.
 
 ```js
 <ul class='items'>
   {items.map((item) => <li>{item.title}</li>)}
 </ul>
+```
+
+### Template strings
+
+This syntax was popularized by [substack](https://github.com/substack) and is used by [yo-yo](https://github.com/maxogden/yo-yo), [inu](https://github.com/ahdinosaur/inu) and [choo](https://github.com/yoshuawuyts/choo). They all utilize [hyperx](https://github.com/substack/hyperx) under the hood.
+
+```js
+yo`<ul>
+  ${items.map((item) => yo`<li>${item}</li>`)}
+</ul>`
 ```
 
 ## Guide
@@ -98,25 +111,25 @@ These functions have the following syntax:
 tag(selector, attributes, children)
 ```
 
-Each argument is **optional** allowing you to create DOM trees really fast. At least **one argument** needs to be **present** however.
+All arguments are **optional** with at least **one argument needing to be present**. This kind of function overloading allows you to iterate on your DOM structure really fast and reduce visual noise.
 
 * **selector** can be `.title` to append a class or `#id` to give the element an id. These can be mixed as you might expect: `#id.title.pad.red`
 * **attributes** is an object of dom attributes: `{ href: '#header' }`
-* **children** can be a string for a text node or an array of children
+* **children** can be a string for a text node or an array of nodes
 
 ### Events
 
 You can write your events inline:
 
 ```js
-button({ onClick: () => console.log('button has been clicked!') }, 'Click Here')
+button({ onClick: () => console.log('button clicked!') }, 'Click Here')
 ```
 
-They can be written however you like: `onClick`, `onclick`, `ONCLICK` etc.
+All events are case insensitive so they can be written however style you want: `onClick`, `onclick`, `ONCLICK` etc.
 
 ### Lifecycle hooks
 
-This is not the concern of this module and should live in higher-level modules like [yo-yo](https://github.com/maxogden/yo-yo) or [inu](https://github.com/ahdinosaur/inu). If you feel like it should, [open an issue](http://github.com/queckezz/create-dom-tree/issues/new) to discuss.
+I think this is not the concern of this module and should live in higher-level frameworks like [yo-yo](https://github.com/maxogden/yo-yo) or [inu](https://github.com/ahdinosaur/inu). If you feel like it should, feel free to [open up a discussion](http://github.com/queckezz/create-dom-tree/issues/new)
 
 ### `createElement()`
 
@@ -135,14 +148,6 @@ console.log(node.outerHTML)
  */
 ```
 
-### SVG Support
-
-As of writing this, there is no SVG support yet. This is on the [roadmap](https://github.com/queckezz/create-dom-tree/issues/1)
-
-## External tools
-
-* [html-to-hyperscript](html-to-hyperscript.paqmind.com) - Webservice to convert HTML to hyperscript
-
 ## Differences from `hyperscript`
 
 This module is a lot smaller because its focused on only creating DOM elements. Feel free to built upon this if you feel like needing any of the following features:
@@ -156,7 +161,17 @@ createElement('text') // -> doesn't generate <div>Text</div>
 
 * No [context](https://github.com/dominictarr/hyperscript/blob/master/test/index.js#L120-L126)
 
+### SVG Support
+
+As of writing this, there is no SVG support yet. This is on the [roadmap](https://github.com/queckezz/create-dom-tree/issues/1)
+
+## External tools
+
+* [html-to-hyperscript](html-to-hyperscript.paqmind.com) - Webservice to convert HTML to hyperscript
+
 ## Tests
+
+Tests are written using JSDOM.
 
 ```bash
 > npm test
@@ -166,7 +181,7 @@ createElement('text') // -> doesn't generate <div>Text</div>
 
 [MIT][license-url]
 
-<sub>The icon in the title was created by [Daniel Bruce](https://www.iconfinder.com/icons/80984/structure_icon#size=16) under the [Creative Commons Attribution-Share Alike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/)</sub>
+<sub>The icon in the title was created by [Daniel Bruce](http://danielbruce.se) under the [Creative Commons Attribution-Share Alike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/)</sub>
 
 [travis-image]: https://img.shields.io/travis/queckezz/create-dom-tree.svg?style=flat-square
 [travis-url]: https://travis-ci.org/queckezz/create-dom-tree
