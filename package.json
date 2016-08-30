@@ -1,6 +1,6 @@
 {
   "name": "create-dom-tree",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Create DOM elements fast with a convenient syntax",
   "main": "lib/index.js",
   "scripts": {
