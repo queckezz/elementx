@@ -1,7 +1,7 @@
 {
   "name": "create-dom-tree",
   "version": "0.1.0",
-  "description": "Create DOM trees using hyperscript like syntax",
+  "description": "Create DOM elements fast with a convenient syntax",
   "main": "lib/index.js",
   "scripts": {
     "example": "budo ./example/index.js --live --open --dir ./example",
@@ -23,8 +23,8 @@
   },
   "author": "queckezz <fabian.eichenberger@gmail.com>",
   "dependencies": {
-    "@f/dom-events": "^1.0.4",
-    "hyperscript-helpers": "^2.1.1"
+    "hyperscript-helpers": "^2.1.1",
+    "parse-hyperscript": "^0.4.0"
   },
   "devDependencies": {
     "buble": "^0.9.3",

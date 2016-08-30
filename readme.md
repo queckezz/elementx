@@ -2,7 +2,7 @@
 
 # create-dom-tree
 
-> ![tree](./tree.png) Create a DOM tree with ease.
+> ![tree](./tree.png) Create DOM elements fast with a convenient syntax
 <br>
 
 [![Build status][travis-image]][travis-url]
@@ -11,7 +11,7 @@
 [![License][license-image]][license-url]
 [![Js Standard Style][standard-image]][standard-url]
 
-This module is intended for use in conjunction with [morphdom](https://github.com/patrick-steele-idem/morphdom) but can be used in any DOM-like environment. It's an alternative to [jsx](https://facebook.github.io/react/docs/jsx-in-depth.html) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
+This module is an alternative to [jsx](https://facebook.github.io/react/docs/jsx-in-depth.html) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
 
 ```js
 div([
@@ -27,7 +27,7 @@ div([
 * Create complex DOM trees with ease
 * Weights only ~1.2kb in size
 * Functional utilities can be used since it's just functions
-* Works perfectly with [morphdom](https://github.com/patrick-steele-idem/morphdom)
+* Works perfectly with [morphdom](https://github.com/patrick-steele-idem/morphdom) or [nanomorph](https://github.com/yoshuawuyts/nanomorph)
 
 ## Installation
 
@@ -58,6 +58,64 @@ console.log(tree.outerHTML)
  * </div>
  */
 ```
+
+## Guide
+
+Each [element](https://github.com/ohanhi/hyperscript-helpers/blob/master/src/index.js#L26-L38) in the DOM is exposed as a function when requiring `create-dom-tree`.
+
+```js
+const { div, h1, p, button } = require('create-dom-tree')
+```
+
+These functions have the following syntax:
+
+```js
+tag(selector, attributes, children)
+```
+
+All arguments are **optional** with at least **one argument needing to be present**. This kind of function overloading allows you to iterate on your DOM structure really fast and reduce visual noise.
+
+* **selector** can be `.title` to append a class or `#id` to give the element an id. These can be mixed as you might expect: `#id.title.pad.red`
+* **attributes** is an object of dom attributes: `{ href: '#header' }`
+* **children** can be a string for a text node or an array of nodes
+
+### Lifecycle hooks
+
+This module aims to be just the element creation layer. It can be used with any view framework using DOM as their base element like [choo](https://github.com/ahdinosaur/inu) or [inu](https://github.com/ahdinosaur/inu).
+
+### Use without helper functions
+
+If you want, you can fall back to the traditional `createElement(tag, attributes, children)` instead of the exposed helper functions.
+
+```js
+const { createElement } = require('create-dom-tree')
+const h = createElement
+
+const node = h('h1', 'text')
+
+console.log(node.outerHTML)
+/* 
+ * ->
+ * <h1>text</h1>
+ */
+```
+
+## Differences from `hyperscript`
+
+This module is a lot smaller because its focused on only creating DOM elements. Feel free to built upon this if you feel like needing any of the following features:
+
+* No [observable](https://github.com/dominictarr/observable) support
+* No default `div` tag since it's not needed with [hyperscript-helpers](https://github.com/ohanhi/hyperscript-helpers)
+
+```js
+createElement('text') // -> doesn't generate <div>Text</div>
+```
+
+* No [context](https://github.com/dominictarr/hyperscript/blob/master/test/index.js#L120-L126)
+
+### SVG Support
+
+As of writing this, there is no SVG support yet. This is on the [roadmap](https://github.com/queckezz/create-dom-tree/issues/1)
 
 ## Syntax comparison
 
@@ -96,74 +154,6 @@ yo`<ul>
   ${items.map((item) => yo`<li>${item}</li>`)}
 </ul>`
 ```
-
-## Guide
-
-Each [element](https://github.com/ohanhi/hyperscript-helpers/blob/master/src/index.js#L26-L38) in the DOM is exposed as a function when requiring `create-dom-tree`.
-
-```js
-const { div, h1, p, button } = require('create-dom-tree')
-```
-
-These functions have the following syntax:
-
-```js
-tag(selector, attributes, children)
-```
-
-All arguments are **optional** with at least **one argument needing to be present**. This kind of function overloading allows you to iterate on your DOM structure really fast and reduce visual noise.
-
-* **selector** can be `.title` to append a class or `#id` to give the element an id. These can be mixed as you might expect: `#id.title.pad.red`
-* **attributes** is an object of dom attributes: `{ href: '#header' }`
-* **children** can be a string for a text node or an array of nodes
-
-### Events
-
-You can write your events inline:
-
-```js
-button({ onClick: () => console.log('button clicked!') }, 'Click Here')
-```
-
-All events are case insensitive so they can be written however style you want: `onClick`, `onclick`, `ONCLICK` etc.
-
-### Lifecycle hooks
-
-I think this is not the concern of this module and should live in higher-level frameworks like [yo-yo](https://github.com/maxogden/yo-yo) or [inu](https://github.com/ahdinosaur/inu). If you feel like it should, feel free to [open up a discussion](http://github.com/queckezz/create-dom-tree/issues/new)
-
-### Use without helper functions
-
-If you want, you can fall back to the traditional `createElement(tag, attributes, children)` instead of the exposed helper functions.
-
-```js
-const { createElement } = require('create-dom-tree')
-const h = createElement
-
-const node = h('h1', 'text')
-
-console.log(node.outerHTML)
-/* 
- * ->
- * <h1>text</h1>
- */
-```
-
-## Differences from `hyperscript`
-
-This module is a lot smaller because its focused on only creating DOM elements. Feel free to built upon this if you feel like needing any of the following features:
-
-* No [observable](https://github.com/dominictarr/observable) support
-* No default `div` tag since it's not needed with [hyperscript-helpers](https://github.com/ohanhi/hyperscript-helpers)
-
-```js
-createElement('text') // -> doesn't generate <div>Text</div>
-```
-
-* No [context](https://github.com/dominictarr/hyperscript/blob/master/test/index.js#L120-L126)
-
-### SVG Support
-
-As of writing this, there is no SVG support yet. This is on the [roadmap](https://github.com/queckezz/create-dom-tree/issues/1)
 
 ## External tools
 
