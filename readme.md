@@ -88,8 +88,8 @@ This module aims to be just the element creation layer. It can be used with any 
 If you want, you can fall back to the traditional `createElement(tag, attributes, children)` instead of the exposed helper functions.
 
 ```js
-const { createElement } = require('create-dom-tree')
-const h = createElement
+const { h } = require('create-dom-tree')
+// -> or { createElement }
 
 const node = h('h1', 'text')
 
