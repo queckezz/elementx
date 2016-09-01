@@ -1,7 +1,8 @@
 
+const isBooleanAttribute = require('./is-boolean-attribute')
 const shorthands = require('hyperscript-helpers')
+const isSvgElement = require('./is-svg-element')
 const parse = require('parse-hyperscript')
-const svgElements = require('svg-tag-names')
 
 module.exports = Object.assign({}, shorthands(createElement), {
   h: createElement,
@@ -11,12 +12,20 @@ module.exports = Object.assign({}, shorthands(createElement), {
 function createElement () {
   const { node, attrs, children } = parse(arguments)
 
-  const el = svgElements.indexOf(node) !== -1
+  const el = isSvgElement(node)
     ? document.createElementNS('http://www.w3.org/2000/svg', node)
     : document.createElement(node)
 
   for (let key in attrs) {
-    attrs.hasOwnProperty(key) && el.setAttribute(key, attrs[key])
+    if (!attrs.hasOwnProperty(key)) continue
+    const attr = attrs[key]
+
+    // if it's a truthy boolean value, set the value to its own key. If it's
+    // a falsy boolean value, ignore the attribute. Otherwise just set the
+    // attribute.
+    isBooleanAttribute(key)
+      ? attr !== false && el.setAttribute(key, key)
+      : el.setAttribute(key, attr)
   }
 
   if (children.length === 0) return el

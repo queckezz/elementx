@@ -3,7 +3,7 @@ global.document = require('jsdom').jsdom('<body></body>')
 global.window = document.defaultView
 global.navigator = window.navigator
 
-const { h, div, h1, p, button } = require('../src')
+const { input, button, div, h1, p, h } = require('../src')
 const tsml = require('tsml')
 const test = require('tape')
 
@@ -85,5 +85,20 @@ test('hyperscript helpers', (t) => {
       <button>Click!</button>
     </div>
   `)
+
+  t.end()
+})
+
+test('supports boolean attributes', (t) => {
+  const tree = input({
+    type: 'checkbox',
+    autofocus: true,
+    checked: false
+  })
+  
+  t.equal(tree.outerHTML, tsml`
+    <input type="checkbox" autofocus="autofocus">
+  `)
+
   t.end()
 })
