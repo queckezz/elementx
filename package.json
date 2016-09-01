@@ -1,7 +1,7 @@
 {
   "name": "elementx",
   "version": "2.1.0",
-  "description": "Create DOM elements with a convenient syntax, supporting a unidirectional infrastructure",
+  "description": "Functionally create elements and compose them to a tree quickly",
   "main": "lib/index.js",
   "scripts": {
     "lint": "standard \"src/*.js\" \"test/*.js\"",

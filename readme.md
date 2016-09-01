@@ -2,14 +2,13 @@
 
 ![logo](./logo.png)
 
-> ![tree](./tree.png) Create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements with a convenient syntax, supporting a unidirectional infrastructure
-> <br>
-
 [![Build status][travis-image]][travis-url]
 [![NPM version][version-image]][version-url]
 [![Dependency Status][david-image]][david-url]
 [![License][license-image]][license-url]
 [![Js Standard Style][standard-image]][standard-url]
+
+> :zap: Functionally create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements and compose them to a tree quickly.
 
 This module is an alternative to [jsx](https://facebook.github.io/react/docs/jsx-in-depth.html) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
 
@@ -27,8 +26,10 @@ div([
 * Supports SVG
 * Supports boolean attributes like `autofocus: true`
 * Weights only `2.8kb` minified and gzipped
+* Allows for conditionally joining CSS classes
+* Convert `style` objects to an inline string
 * Functional utilities can be used since it's just functions
-* Can be used with diffing libraries like [morphdom](https://github.com/patrick-steele-idem/morphdom) or [nanomorph](https://github.com/yoshuawuyts/nanomorph) for a unidirectional infrastructure
+* Can be used with diffing libraries like [morphdom](https://github.com/patrick-steele-idem/morphdom) or [nanomorph](https://github.com/yoshuawuyts/nanomorph) for a unidirectional architecture
 
 ## Installation
 
@@ -60,7 +61,7 @@ console.log(tree.outerHTML)
  */
 ```
 
-## Guide
+## Getting Started
 
 Each [element](https://github.com/ohanhi/hyperscript-helpers/blob/master/src/index.js#L26-L38) in the DOM is exposed as a function when requiring `elementx`.
 
@@ -82,11 +83,11 @@ All arguments are **optional** with at least **one argument needing to be presen
 
 ### Lifecycle hooks
 
-This module aims to be just the element creation layer. It can be used with any view framework using DOM as their base abstraction. Some frameworks include choo](https://github.com/ahdinosaur/inu) or [inu](https://github.com/ahdinosaur/inu).
+This module aims to be just the element creation layer. It can be used with any view framework using DOM as their base element abstraction for diffing. Some libraries like this include [choo](https://github.com/yoshuawuyts/choo) or [inu](https://github.com/ahdinosaur/inu).
 
 ### Use without helper functions
 
-Sometimes you need to fall back to the traditional `createElement(tag, attributes, children)` (aliased to `h`) for example svg tags.
+Sometimes you need to fall back to the traditional `createElement(tag, attributes, children)` (aliased to `h`), for example svg tags.
 
 ```js
 const { h } = require('elementx')
@@ -99,6 +100,26 @@ console.log(node.outerHTML)
  * ->
  * <h1>text</h1>
  */
+```
+
+### Built-in Sugar
+
+#### Classes
+
+Conditionally joins class names together. It utilizes JedWatson's awesome [classnames](https://github.com/JedWatson/classnames). Visit the [usage docs](https://github.com/JedWatson/classnames#usage) for more information.
+
+#### Inline styles
+
+Converts style objects to a string. For an additional weight of ~400 bytes this is well worth it:
+
+```js
+const style = {
+  textDecoration: 'underline',
+  fontSize: '56px'
+}
+
+const node = h1({ style }, 'hello!')
+// -> <h1 style='text-decoration:underline;font-size:56px;'>hello!</h1>
 ```
 
 ## Differences from `hyperscript`
