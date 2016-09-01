@@ -41,6 +41,7 @@ function createElement () {
   if (children.length === 0) return el
 
   children.forEach((child) => {
+    if (!child) return
     if (isString(child)) child = document.createTextNode(child)
     el.appendChild(child)
   })

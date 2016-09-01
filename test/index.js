@@ -121,3 +121,15 @@ test('supports className as an alias for class', (t) => {
   t.equal(node.outerHTML, '<p class="test-class"></p>')
   t.end()
 })
+
+test('ignore null as children', (t) => {
+  const node = div([p('hello'), null])
+
+  t.equal(node.outerHTML, tsml`
+    <div>
+      <p>hello</p>
+    </div>
+  `)
+
+  t.end()
+})
