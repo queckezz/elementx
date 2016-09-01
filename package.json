@@ -1,7 +1,7 @@
 {
   "name": "elementx",
   "version": "1.0.1",
-  "description": "Create DOM elements fast with a convenient syntax",
+  "description": "Create DOM elements with a convenient syntax, supporting a unidirectional infrastructure",
   "main": "lib/index.js",
   "scripts": {
     "lint": "standard \"src/*.js\" \"test/*.js\"",
@@ -12,13 +12,17 @@
   "keywords": [
     "hyperscript",
     "dom",
+    "element",
+    "node",
     "create dom",
     "morphdom",
+    "nanomorph",
+    "unidirectional",
     "virtual-dom"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/queckezz/create-dom-tree"
+    "url": "https://github.com/queckezz/elementx"
   },
   "author": "queckezz <fabian.eichenberger@gmail.com>",
   "dependencies": {

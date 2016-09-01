@@ -3,7 +3,7 @@
 # elementx
 
 > ![tree](./tree.png) Create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements with a convenient syntax, supporting a unidirectional infrastructure
-> <br>
+<br>
 
 [![Build status][travis-image]][travis-url]
 [![NPM version][version-image]][version-url]
