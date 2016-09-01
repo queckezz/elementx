@@ -3,6 +3,7 @@ const isBooleanAttribute = require('./is-boolean-attribute')
 const shorthands = require('hyperscript-helpers')
 const isSvgElement = require('./is-svg-element')
 const parse = require('parse-hyperscript')
+const classnames = require('classnames')
 
 module.exports = Object.assign({}, shorthands(createElement), {
   h: createElement,
@@ -18,7 +19,7 @@ function createElement () {
 
   for (let key in attrs) {
     if (!attrs.hasOwnProperty(key)) continue
-    const attr = attrs[key]
+    const attr = decorate(key, attrs[key])
 
     // if it's a truthy boolean value, set the value to its own key. If it's
     // a falsy boolean value, ignore the attribute. Otherwise just set the
@@ -36,6 +37,15 @@ function createElement () {
   })
 
   return el
+}
+
+function decorate (attr, value) {
+  switch (attr) {
+    case 'class':
+      return classnames(value)
+    default:
+      return value
+  }
 }
 
 function isString (val) { return typeof val === 'string' }

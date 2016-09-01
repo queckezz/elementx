@@ -102,3 +102,9 @@ test('supports boolean attributes', (t) => {
 
   t.end()
 })
+
+test('classnames', (t) => {
+  const tree = p({ class: ['one', { two: true, three: false }] })
+  t.equal(tree.outerHTML, '<p class="one two"></p>')
+  t.end()
+})

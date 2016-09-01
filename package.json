@@ -22,6 +22,7 @@
   },
   "author": "queckezz <fabian.eichenberger@gmail.com>",
   "dependencies": {
+    "classnames": "^2.2.5",
     "hyperscript-helpers": "^3.0.1",
     "parse-hyperscript": "^0.4.0",
     "svg-tag-names": "^1.0.0"
