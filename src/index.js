@@ -1,6 +1,7 @@
 
 const shorthands = require('hyperscript-helpers')
 const parse = require('parse-hyperscript')
+const svgElements = require('svg-tag-names')
 
 module.exports = Object.assign({}, shorthands(createElement), {
   h: createElement,
@@ -9,7 +10,10 @@ module.exports = Object.assign({}, shorthands(createElement), {
 
 function createElement () {
   const { node, attrs, children } = parse(arguments)
-  const el = document.createElement(node)
+
+  const el = svgElements.indexOf(node) !== -1
+    ? document.createElementNS('http://www.w3.org/2000/svg', node)
+    : document.createElement(node)
 
   for (let key in attrs) {
     attrs.hasOwnProperty(key) && el.setAttribute(key, attrs[key])
