@@ -1,5 +1,5 @@
 {
-  "name": "create-dom-tree",
+  "name": "elementx",
   "version": "1.0.1",
   "description": "Create DOM elements fast with a convenient syntax",
   "main": "lib/index.js",

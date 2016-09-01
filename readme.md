@@ -1,9 +1,9 @@
 
 
-# create-dom-tree
+# elementx
 
-> ![tree](./tree.png) Create DOM elements fast with a convenient syntax
-<br>
+> ![tree](./tree.png) Create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements with a convenient syntax, supporting a unidirectional infrastructure
+> <br>
 
 [![Build status][travis-image]][travis-url]
 [![NPM version][version-image]][version-url]
@@ -15,30 +15,31 @@ This module is an alternative to [jsx](https://facebook.github.io/react/docs/jsx
 
 ```js
 div([
-  h1('.bold', 'create-dom-tree'),
+  h1('.bold', 'elementx'),
   h2('#subtitle', 'Create a DOM tree with ease'),
-  button({ href: 'http://ghub.io/create-dom-tree' }, 'Open'),
+  button({ href: 'http://ghub.io/elementx' }, 'Open'),
   ul(['simple', 'functional', 'fast'].map(key => li(key)))
 ])
 ```
 
 ## Features
 
-* Create complex DOM trees with ease
+* Supports SVG
+* Supports boolean attributes like `autofocus: true
 * Weights only ~1.2kb in size
 * Functional utilities can be used since it's just functions
-* Works perfectly with [morphdom](https://github.com/patrick-steele-idem/morphdom) or [nanomorph](https://github.com/yoshuawuyts/nanomorph)
+* Can be used with diffing libraries like [morphdom](https://github.com/patrick-steele-idem/morphdom) or [nanomorph](https://github.com/yoshuawuyts/nanomorph) for a unidirectional infrastructure
 
 ## Installation
 
 ```bash
-> npm install create-dom-tree
+> npm install elementx
 ```
 
 ## Usage
 
 ```js
-const { div, h1, a } = require('create-dom-tree')
+const { div, h1, a } = require('elementx')
 
 const tree = div('.container.p2#js-root', [
   h1('.title', 'This is a title'),
@@ -61,10 +62,10 @@ console.log(tree.outerHTML)
 
 ## Guide
 
-Each [element](https://github.com/ohanhi/hyperscript-helpers/blob/master/src/index.js#L26-L38) in the DOM is exposed as a function when requiring `create-dom-tree`.
+Each [element](https://github.com/ohanhi/hyperscript-helpers/blob/master/src/index.js#L26-L38) in the DOM is exposed as a function when requiring `elementx`.
 
 ```js
-const { div, h1, p, button } = require('create-dom-tree')
+const { div, h1, p, button } = require('elementx')
 ```
 
 These functions have the following syntax:
@@ -81,14 +82,14 @@ All arguments are **optional** with at least **one argument needing to be presen
 
 ### Lifecycle hooks
 
-This module aims to be just the element creation layer. It can be used with any view framework using DOM as their base element like [choo](https://github.com/ahdinosaur/inu) or [inu](https://github.com/ahdinosaur/inu).
+This module aims to be just the element creation layer. It can be used with any view framework using DOM as their base abstraction. Some frameworks include choo](https://github.com/ahdinosaur/inu) or [inu](https://github.com/ahdinosaur/inu).
 
 ### Use without helper functions
 
-If you want, you can fall back to the traditional `createElement(tag, attributes, children)` instead of the exposed helper functions.
+Sometimes you need to fall back to the traditional `createElement(tag, attributes, children)` (aliased to `h`) for example svg tags.
 
 ```js
-const { h } = require('create-dom-tree')
+const { h } = require('elementx')
 // -> or { createElement }
 
 const node = h('h1', 'text')
@@ -113,48 +114,6 @@ createElement('text') // -> doesn't generate <div>Text</div>
 
 * No [context](https://github.com/dominictarr/hyperscript/blob/master/test/index.js#L120-L126)
 
-### SVG Support
-
-As of writing this, there is no SVG support yet. This is on the [roadmap](https://github.com/queckezz/create-dom-tree/issues/1)
-
-## Syntax comparison
-
-While the syntax differences are subtle, as the the tree grows, these small differences can influence visual noise by a lot.
-
-### Helper functions or `create-dom-tree`
-
-```js
-ul('.items', items.map((item) => li(item.text)))
-```
-
-### Hyperscript
-
-This traditional syntax is also available through `createElement` from this module.
-
-```js
-h('ul.items', items.map((item) => li(item.text)))
-```
-
-### JSX
-
-This syntax is a non-standard language addition popularized by facebook. Each `tag` gets converted into a function call.
-
-```js
-<ul class='items'>
-  {items.map((item) => <li>{item.title}</li>)}
-</ul>
-```
-
-### Template strings
-
-This syntax was popularized by [substack](https://github.com/substack) and is used by [yo-yo](https://github.com/maxogden/yo-yo), [inu](https://github.com/ahdinosaur/inu) and [choo](https://github.com/yoshuawuyts/choo). They all utilize [hyperx](https://github.com/substack/hyperx) under the hood.
-
-```js
-yo`<ul>
-  ${items.map((item) => yo`<li>${item}</li>`)}
-</ul>`
-```
-
 ## External tools
 
 * [html-to-hyperscript](html-to-hyperscript.paqmind.com) - Webservice to convert HTML to hyperscript
@@ -173,17 +132,17 @@ Tests are written using JSDOM.
 
 <sub>The icon in the title was created by [Daniel Bruce](http://danielbruce.se) under the [Creative Commons Attribution-Share Alike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/)</sub>
 
-[travis-image]: https://img.shields.io/travis/queckezz/create-dom-tree.svg?style=flat-square
-[travis-url]: https://travis-ci.org/queckezz/create-dom-tree
+[travis-image]: https://img.shields.io/travis/queckezz/elementx.svg?style=flat-square
+[travis-url]: https://travis-ci.org/queckezz/elementx
 
-[version-image]: https://img.shields.io/npm/v/create-dom-tree.svg?style=flat-square
-[version-url]: https://npmjs.org/package/create-dom-tree
+[version-image]: https://img.shields.io/npm/v/elementx.svg?style=flat-square
+[version-url]: https://npmjs.org/package/elementx
 
-[david-image]: http://img.shields.io/david/queckezz/create-dom-tree.svg?style=flat-square
-[david-url]: https://david-dm.org/queckezz/create-dom-tree
+[david-image]: http://img.shields.io/david/queckezz/elementx.svg?style=flat-square
+[david-url]: https://david-dm.org/queckezz/elementx
 
 [standard-image]: https://img.shields.io/badge/code-standard-brightgreen.svg?style=flat-square
 [standard-url]: https://github.com/feross/standard
 
-[license-image]: http://img.shields.io/npm/l/create-dom-tree.svg?style=flat-square
+[license-image]: http://img.shields.io/npm/l/elementx.svg?style=flat-square
 [license-url]: ./license
