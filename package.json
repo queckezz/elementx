@@ -4,6 +4,7 @@
   "description": "Create DOM elements fast with a convenient syntax",
   "main": "lib/index.js",
   "scripts": {
+    "lint": "standard \"src/*.js\" \"test/*.js\"",
     "prepublish": "npm run lint && npm run test && mkdirp lib && buble src -o lib",
     "release": "xyz",
     "test": "tape test/*.js | tap-spec"

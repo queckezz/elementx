@@ -95,7 +95,7 @@ test('supports boolean attributes', (t) => {
     autofocus: true,
     checked: false
   })
-  
+
   t.equal(tree.outerHTML, tsml`
     <input type="checkbox" autofocus="autofocus">
   `)
