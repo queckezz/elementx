@@ -115,3 +115,9 @@ test('supports inline style objects', (t) => {
   t.equal(tree.outerHTML, '<p style="background-color:red;"></p>')
   t.end()
 })
+
+test('supports className as an alias for class', (t) => {
+  const node = p({ className: 'test-class' })
+  t.equal(node.outerHTML, '<p class="test-class"></p>')
+  t.end()
+})

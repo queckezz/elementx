@@ -20,7 +20,15 @@ function createElement () {
 
   for (let key in attrs) {
     if (!attrs.hasOwnProperty(key)) continue
-    const attr = decorate(key, attrs[key])
+    let attr
+
+    // if attr is `className`, rewrite to `class` otherwise decorate as usual.
+    if (key === 'className') {
+      key = 'class'
+      attr = decorate(key, attrs.className)
+    } else {
+      attr = decorate(key, attrs[key])
+    }
 
     // if it's a truthy boolean value, set the value to its own key. If it's
     // a falsy boolean value, ignore the attribute. Otherwise just set the
