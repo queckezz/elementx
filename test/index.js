@@ -103,8 +103,15 @@ test('supports boolean attributes', (t) => {
   t.end()
 })
 
-test('classnames', (t) => {
+test('supports classnames-like syntax', (t) => {
   const tree = p({ class: ['one', { two: true, three: false }] })
   t.equal(tree.outerHTML, '<p class="one two"></p>')
+  t.end()
+})
+
+test('supports inline style objects', (t) => {
+  const style = { backgroundColor: 'red' }
+  const tree = p({ style })
+  t.equal(tree.outerHTML, '<p style="background-color:red;"></p>')
   t.end()
 })

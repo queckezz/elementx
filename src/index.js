@@ -1,5 +1,6 @@
 
 const isBooleanAttribute = require('./is-boolean-attribute')
+const toInlineStyle = require('./to-inline-style')
 const shorthands = require('hyperscript-helpers')
 const isSvgElement = require('./is-svg-element')
 const parse = require('parse-hyperscript')
@@ -43,6 +44,10 @@ function decorate (attr, value) {
   switch (attr) {
     case 'class':
       return classnames(value)
+    case 'style':
+      return typeof value !== 'string'
+        ? toInlineStyle(value)
+        : value
     default:
       return value
   }
