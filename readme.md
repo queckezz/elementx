@@ -105,13 +105,12 @@ console.log(node.outerHTML)
 
 To process an attribute further you can use the `decorate` submodule which allows you to hook into them:
 
-**create-element.js**
 ```js
 const decorate = require('elementx/decorate')
 
 // automatically inlines style objects. Make sure to return the original value
 // if you don't modify anything.
-module.exports = decorate((attr, value) => {
+const { h1, div } = decorate((attr, value) => {
     case 'style':
       return typeof value !== 'string'
         ? toInlineStyle(value)
@@ -119,6 +118,13 @@ module.exports = decorate((attr, value) => {
     default:
       return value
 })
+
+function render ({ backgroundColor }) {
+  const style = { color: 'red', backgroundColor }
+  return div([
+    h1({ style })
+  ])
+}
 ```
 
 ## Differences from `hyperscript`
@@ -149,8 +155,6 @@ Tests are written using JSDOM.
 ## License
 
 [MIT][license-url]
-
-<sub>The icon in the title was created by [Daniel Bruce](http://danielbruce.se) under the [Creative Commons Attribution-Share Alike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/)</sub>
 
 [travis-image]: https://img.shields.io/travis/queckezz/elementx.svg?style=flat-square
 [travis-url]: https://travis-ci.org/queckezz/elementx
