@@ -1,6 +1,6 @@
 {
   "name": "elementx",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Functionally create elements and compose them to a tree quickly",
   "main": "index.js",
   "scripts": {
