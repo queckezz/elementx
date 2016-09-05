@@ -3,7 +3,8 @@ global.document = require('jsdom').jsdom('<body></body>')
 global.window = document.defaultView
 global.navigator = window.navigator
 
-const { input, button, div, h1, p, h } = require('../src')
+const { input, button, div, h1, p, h } = require('..')
+const decorate = require('../decorate')
 const tsml = require('tsml')
 const test = require('tape')
 
@@ -103,22 +104,21 @@ test('supports boolean attributes', (t) => {
   t.end()
 })
 
-test('supports classnames-like syntax', (t) => {
-  const tree = p({ class: ['one', { two: true, three: false }] })
-  t.equal(tree.outerHTML, '<p class="one two"></p>')
-  t.end()
-})
-
-test('supports inline style objects', (t) => {
-  const style = { backgroundColor: 'red' }
-  const tree = p({ style })
-  t.equal(tree.outerHTML, '<p style="background-color:red;"></p>')
-  t.end()
-})
-
 test('supports className as an alias for class', (t) => {
   const node = p({ className: 'test-class' })
   t.equal(node.outerHTML, '<p class="test-class"></p>')
+  t.end()
+})
+
+test('decorate', (t) => {
+  const { span } = decorate((attr, value) => {
+    if (attr == 'class') {
+      return 'DECORATED'
+    }
+  })
+
+  const node = span({ class: 'hello world' })
+  t.equal(node.outerHTML, '<span class="DECORATED"></span>')
   t.end()
 })
 

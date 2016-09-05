@@ -25,9 +25,8 @@ div([
 
 * Supports SVG
 * Supports boolean attributes like `autofocus: true`
-* Weights only `2.8kb` minified and gzipped
-* Allows for conditionally joining CSS classes
-* Convert `style` objects to an inline string
+* Weights only `2.52 kB` minified and gzipped
+* Pluggable API for hooking into specific attributes and modifying them
 * Functional utilities can be used since it's just functions
 * Can be used with diffing libraries like [morphdom](https://github.com/patrick-steele-idem/morphdom) or [nanomorph](https://github.com/yoshuawuyts/nanomorph) for a unidirectional architecture
 
@@ -102,24 +101,24 @@ console.log(node.outerHTML)
  */
 ```
 
-### Built-in Sugar
+### Decorating attributes
 
-#### Classes
+To process an attribute further you can use the `decorate` submodule which allows you to hook into them:
 
-Conditionally joins class names together. It utilizes JedWatson's awesome [classnames](https://github.com/JedWatson/classnames). Visit the [usage docs](https://github.com/JedWatson/classnames#usage) for more information.
-
-#### Inline styles
-
-Converts style objects to a string. For an additional weight of ~400 bytes this is well worth it:
-
+**create-element.js**
 ```js
-const style = {
-  textDecoration: 'underline',
-  fontSize: '56px'
-}
+const decorate = require('elementx/decorate')
 
-const node = h1({ style }, 'hello!')
-// -> <h1 style='text-decoration:underline;font-size:56px;'>hello!</h1>
+// automatically inlines style objects. Make sure to return the original value
+// if you don't modify anything.
+module.exports = decorate((attr, value) => {
+    case 'style':
+      return typeof value !== 'string'
+        ? toInlineStyle(value)
+        : value
+    default:
+      return value
+})
 ```
 
 ## Differences from `hyperscript`
