@@ -3,6 +3,7 @@ var isBooleanAttribute = require('./is-boolean-attribute')
 var shorthands = require('hyperscript-helpers')
 var isSvgElement = require('./is-svg-element')
 var parse = require('parse-hyperscript')
+var document = require('global-undom')
 var defined = require('defined')
 
 module.exports = decorateElement

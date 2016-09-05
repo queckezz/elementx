@@ -1,32 +1,30 @@
 
-global.document = require('jsdom').jsdom('<body></body>')
-global.window = document.defaultView
-global.navigator = window.navigator
-
 const { input, button, div, h1, p, h } = require('..')
+const serialize = require('serialize-dom')
 const decorate = require('../decorate')
 const tsml = require('tsml')
 const test = require('tape')
 
 test('create nodes', (t) => {
-  t.equal(h('h1').outerHTML, '<h1></h1>', 'empty element')
+  t.equal(serialize(h('h1')), '<h1></h1>', 'empty element')
   t.equal(
-    h('h1', 'hello world').outerHTML,
+    serialize(h('h1', 'hello world')),
     '<h1>hello world</h1>',
     'text node'
   )
+
   t.end()
 })
 
 test('id and class shorthands', (t) => {
   t.equal(
-    h('h1.title.bold', 'text').outerHTML,
+    serialize(h('h1.title.bold', 'text')),
     '<h1 class="title bold">text</h1>',
     'class'
   )
 
   t.equal(
-    h('h1#some-id', 'text').outerHTML,
+    serialize(h('h1#some-id', 'text')),
     '<h1 id="some-id">text</h1>',
     'id'
   )
@@ -40,7 +38,7 @@ test('create nested nodes', (t) => {
     h('p', 'Paragraph')
   ])
 
-  t.equal(tree.outerHTML, '<div><h1>Title</h1><p>Paragraph</p></div>')
+  t.equal(serialize(tree), '<div><h1>Title</h1><p>Paragraph</p></div>')
   t.end()
 })
 
@@ -48,7 +46,7 @@ test('create node with attributes', (t) => {
   const node = h('div', { class: 'test', 'data-id': 2 })
   t.equal(node.getAttribute('class'), 'test', 'reserved keywords')
   t.equal(node.getAttribute('data-id'), '2', 'data attributes')
-  t.equal(node.outerHTML, '<div class="test" data-id="2"></div>')
+  t.equal(serialize(node), '<div class="test" data-id="2"></div>')
   t.end()
 })
 
@@ -60,7 +58,7 @@ test('create nested nodes with all different kinds of combinations', (t) => {
     ])
   ])
 
-  t.equal(tree.outerHTML, tsml`
+  t.equal(serialize(tree), tsml`
     <div class="full-width p2">
       <h1>Some text</h1>
       <div style="background-color: red;">
@@ -79,7 +77,7 @@ test('hyperscript helpers', (t) => {
     button('Click!')
   ])
 
-  t.equal(tree.outerHTML, tsml`
+  t.equal(serialize(tree), tsml`
     <div id="js-root">
       <h1 class="title">Hello World!</h1>
       <p>This is a description</p>
@@ -97,7 +95,7 @@ test('supports boolean attributes', (t) => {
     checked: false
   })
 
-  t.equal(tree.outerHTML, tsml`
+  t.equal(serialize(tree), tsml`
     <input type="checkbox" autofocus="autofocus">
   `)
 
@@ -106,7 +104,7 @@ test('supports boolean attributes', (t) => {
 
 test('supports className as an alias for class', (t) => {
   const node = p({ className: 'test-class' })
-  t.equal(node.outerHTML, '<p class="test-class"></p>')
+  t.equal(serialize(node), '<p class="test-class"></p>')
   t.end()
 })
 
@@ -118,7 +116,7 @@ test('decorate', (t) => {
   })
 
   const node = span({ class: 'hello world' })
-  t.equal(node.outerHTML, '<span class="DECORATED"></span>')
+  t.equal(serialize(node), '<span class="DECORATED"></span>')
   t.end()
 })
 
@@ -128,9 +126,9 @@ test('ignore null as children', (t) => {
   const node3 = div([undefined])
   const node4 = div([undefined, null, p('hello')])
 
-  t.equal(node1.outerHTML, '<div><p>hello</p></div>')
-  t.equal(node2.outerHTML, '<div></div>')
-  t.equal(node3.outerHTML, '<div></div>')
-  t.equal(node4.outerHTML, '<div><p>hello</p></div>')
+  t.equal(serialize(node1), '<div><p>hello</p></div>')
+  t.equal(serialize(node2), '<div></div>')
+  t.equal(serialize(node3), '<div></div>')
+  t.equal(serialize(node4), '<div><p>hello</p></div>')
   t.end()
 })
