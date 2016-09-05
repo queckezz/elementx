@@ -4,7 +4,7 @@
   "description": "Functionally create elements and compose them to a tree quickly",
   "main": "index.js",
   "scripts": {
-    "lint": "standard \"src/*.js\" \"test/*.js\"",
+    "lint": "standard \"*.js\" \"test/*.js\"",
     "prepublish": "npm run lint && npm run test",
     "release": "xyz",
     "test": "tape test/*.js | tap-spec"

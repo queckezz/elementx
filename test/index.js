@@ -112,7 +112,7 @@ test('supports className as an alias for class', (t) => {
 
 test('decorate', (t) => {
   const { span } = decorate((attr, value) => {
-    if (attr == 'class') {
+    if (attr === 'class') {
       return 'DECORATED'
     }
   })
