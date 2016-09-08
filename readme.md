@@ -7,6 +7,7 @@
 [![Dependency Status][david-image]][david-url]
 [![License][license-image]][license-url]
 [![Js Standard Style][standard-image]][standard-url]
+[![Downloads per month][downloads-image]][downloads-url]
 
 > :zap: Functionally create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements and compose them to a tree quickly.
 
@@ -171,6 +172,9 @@ Tests are written using JSDOM.
 
 [version-image]: https://img.shields.io/npm/v/elementx.svg?style=flat-square
 [version-url]: https://npmjs.org/package/elementx
+
+[downloads-image]: https://img.shields.io/npm/dm/elementx.svg?maxAge=2592000&style=flat-square
+[downloads-url]: https://npmjs.org/package/elementx
 
 [david-image]: http://img.shields.io/david/queckezz/elementx.svg?style=flat-square
 [david-url]: https://david-dm.org/queckezz/elementx
