@@ -35,12 +35,17 @@ function decorateElement (decorate) {
         attr = decorate(key, obj.attrs[key])
       }
 
-      // if it's a truthy boolean value, set the value to its own key. If it's
-      // a falsy boolean value, ignore the attribute. Otherwise just set the
-      // attribute.
-      isBooleanAttribute(key)
-        ? attr !== false && el.setAttribute(key, key)
-        : el.setAttribute(key, attr)
+      if (isEventHandler(key)) {
+        // add event listeners to the node directly
+        el[normalizeEvent(key)] = attr
+      } else if (isBooleanAttribute(key)) {
+        // if it's a truthy boolean value, set the value to its own key.
+        // If it's a falsy boolean value, ignore the attribute.
+        attr !== false && el.setAttribute(key, key)
+      } else {
+        // otherwise just set the attribute
+        el.setAttribute(key, attr)
+      }
     }
 
     if (obj.children.length === 0) return el
@@ -55,5 +60,18 @@ function decorateElement (decorate) {
   }
 }
 
-function defaultDecorate (attr, value) { return value }
-function isString (val) { return typeof val === 'string' }
+function normalizeEvent (ev) {
+  return 'on' + ev.slice(2, ev.length).toLowerCase()
+}
+
+function isEventHandler (key) {
+  return key.slice(0, 2) === 'on'
+}
+
+function defaultDecorate (attr, value) {
+  return value
+}
+
+function isString (val) {
+  return typeof val === 'string'
+}

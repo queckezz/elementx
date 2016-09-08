@@ -23,11 +23,12 @@ div([
 
 ## Features
 
-* Supports SVG
-* Supports boolean attributes like `autofocus: true`
-* Weights only `2.52 kB` minified and gzipped
+* Supports creating SVG Elements
+* Convenient element event handling
+* Boolean attributes (like `autofocus: true`)
 * Pluggable API for hooking into specific attributes and modifying them
-* Functional utilities can be used since it's just functions
+* Functional utilities can be used since it's just function composition
+* Weights only `2.52 kB` minified and gzipped
 * Can be used with diffing libraries like [morphdom](https://github.com/patrick-steele-idem/morphdom) or [nanomorph](https://github.com/yoshuawuyts/nanomorph) for a unidirectional architecture
 
 ## Installation
@@ -99,6 +100,15 @@ console.log(node.outerHTML)
  * ->
  * <h1>text</h1>
  */
+```
+
+### Events
+
+All [HTML DOM Events](https://developer.mozilla.org/en-US/docs/Web/Events) can be attached. The casing of the event name doesn't matter (`onClick`, `onclick`, `ONCLICK` etc.)
+
+```js
+const node = button({ onClick: () => console.log('button has been clicked') })
+document.body.appendChild(node)
 ```
 
 ### Decorating attributes

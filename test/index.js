@@ -132,3 +132,17 @@ test('ignore null as children', (t) => {
   t.equal(serialize(node4), '<div><p>hello</p></div>')
   t.end()
 })
+
+
+test('adds event handlers', (t) => {
+  const handler = () => 'clicked'
+  const node1 = button({ onclick: handler })
+  t.equal(node1.onclick, handler)
+  t.equal(node1.onclick(), 'clicked')
+
+  // custom attribute casing
+  const node2 = button({ onSubmit: handler })
+  t.equal(node2.onsubmit, handler)
+  t.equal(node2.onsubmit(), 'clicked')
+  t.end()
+})
