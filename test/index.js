@@ -133,7 +133,6 @@ test('ignore null as children', (t) => {
   t.end()
 })
 
-
 test('adds event handlers', (t) => {
   const handler = () => 'clicked'
   const node1 = button({ onclick: handler })
