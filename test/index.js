@@ -145,3 +145,16 @@ test('adds event handlers', (t) => {
   t.equal(node2.onsubmit(), 'clicked')
   t.end()
 })
+
+test('supports classnames-like syntax', (t) => {
+  const tree = p({ class: ['one', { two: true, three: false }] })
+  t.equal(serialize(tree), '<p class="one two"></p>')
+  t.end()
+})
+
+test('supports inline style objects', (t) => {
+  const style = { backgroundColor: 'red' }
+  const tree = p({ style })
+  t.equal(serialize(tree), '<p style="background-color:red"></p>')
+  t.end()
+})

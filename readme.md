@@ -112,6 +112,28 @@ const node = button({ onClick: () => console.log('button has been clicked') })
 document.body.appendChild(node)
 ```
 
+### Built-in Sugar
+
+This module includes some sugar which is essential to most single page applications today. If you feel like they add to much weight, you can always opt-out and require `elementx/decorate` for the barebones implementation.
+
+#### Classes
+
+Conditionally joins class names together. It utilizes JedWatson's awesome [classnames](https://github.com/JedWatson/classnames). Visit the [usage docs](https://github.com/JedWatson/classnames#usage) for more information.
+
+#### Inline styles
+
+Converts style objects to an inline string.
+
+```js
+const style = {
+  textDecoration: 'underline',
+  fontSize: '56px'
+}
+
+const node = h1({ style }, 'hello!')
+// -> <h1 style='text-decoration:underline;font-size:56px;'>hello!</h1>
+```
+
 ### Decorating attributes
 
 To process an attribute further you can use the `decorate` submodule which allows you to hook into them:

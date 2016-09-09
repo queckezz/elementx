@@ -26,6 +26,8 @@
   },
   "author": "queckezz <fabian.eichenberger@gmail.com>",
   "dependencies": {
+    "@f/hyphenate": "^1.0.0",
+    "classnames": "^2.2.5",
     "defined": "^1.0.0",
     "global-undom": "^0.1.1",
     "hyperscript-helpers": "^3.0.1",
