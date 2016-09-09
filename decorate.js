@@ -1,4 +1,5 @@
 
+var svgAttributeNamespace = require('./svg-attribute-namespace')
 var isBooleanAttribute = require('./is-boolean-attribute')
 var shorthands = require('hyperscript-helpers')
 var isSvgElement = require('./is-svg-element')
@@ -27,7 +28,7 @@ function decorateElement (decorate) {
       if (!obj.attrs.hasOwnProperty(key)) continue
       var attr
 
-      // if attr is `className`, rewrite to `class` otherwise decorate as usual.
+      // if attr is `className`, rewrite to `class` otherwise decorate as usual
       if (key === 'className') {
         key = 'class'
         attr = decorate(key, obj.attrs.className)
@@ -40,11 +41,15 @@ function decorateElement (decorate) {
         el[normalizeEvent(key)] = attr
       } else if (isBooleanAttribute(key)) {
         // if it's a truthy boolean value, set the value to its own key.
-        // If it's a falsy boolean value, ignore the attribute.
+        // If it's a falsy boolean value, ignore the attribute
         attr !== false && el.setAttribute(key, key)
       } else {
-        // otherwise just set the attribute
-        el.setAttribute(key, attr)
+        // otherwise just set the attribute on the element. Set the
+        // namespace if it's an svg
+        var ns = svgAttributeNamespace(key)
+        ns
+          ? el.setAttributeNS(ns, key, attr)
+          : el.setAttribute(key, attr)
       }
     }
 

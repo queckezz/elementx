@@ -158,3 +158,9 @@ test('supports inline style objects', (t) => {
   t.equal(serialize(tree), '<p style="background-color:red"></p>')
   t.end()
 })
+
+test('supports svg attributes', (t) => {
+  const node = h('use', { 'xlink:href': '#test' })
+  t.equal(node.attributes[0].ns, 'http://www.w3.org/1999/xlink')
+  t.end()
+})
