@@ -18,6 +18,8 @@ module.exports = decorate(function (key, value) {
 
 function toInlineStyle (def) {
   return Object.keys(def)
-    .map(prop => `${hyphenate(prop)}:${def[prop]}`)
+    .map(function (prop) {
+      return hyphenate(prop) + ':' + def[prop]
+    })
     .join(';')
 }
