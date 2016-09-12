@@ -164,3 +164,9 @@ test('supports svg attributes', (t) => {
   t.equal(node.attributes[0].ns, 'http://www.w3.org/1999/xlink')
   t.end()
 })
+
+test('does not add unknown namespace attributes', (t) => {
+  const node = h('use', { 'randomnamespace:href': '#test' })
+  t.equal(node.attributes[0].ns, null)
+  t.end()
+})
