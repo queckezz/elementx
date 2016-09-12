@@ -4,7 +4,7 @@
   "description": "Functionally create elements and compose them to a tree quickly",
   "main": "index.js",
   "scripts": {
-    "release": "run-s test:* xyz",
+    "release": "run-s test:* && xyz",
     "test": "run-s test:*",
     "test:lint": "standard",
     "test:run": "tape test/*.js | tap-spec",
