@@ -2,12 +2,13 @@
 
 ![logo](./logo.png)
 
-[![Build status][travis-image]][travis-url]
-[![NPM version][version-image]][version-url]
-[![Dependency Status][david-image]][david-url]
-[![License][license-image]][license-url]
-[![Js Standard Style][standard-image]][standard-url]
-[![Downloads per month][downloads-image]][downloads-url]
+[![npm version][version-image]][version-url]
+[![build status][travis-image]][travis-url]
+[![test coverage][codecov-image]][codecov-url]
+[![dependency status][david-image]][david-url]
+[![license][license-image]][license-url]
+[![js standard style][standard-image]][standard-url]
+[![downloads per month][downloads-image]][downloads-url]
 
 > ​:zap:​ Functionally create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements and compose them to a tree quickly.
 
@@ -200,6 +201,9 @@ Tests are written using JSDOM.
 
 [version-image]: https://img.shields.io/npm/v/elementx.svg?style=flat-square
 [version-url]: https://npmjs.org/package/elementx
+
+[codecov-image]: https://img.shields.io/codecov/c/github/queckezz/elementx/master.svg?style=flat-square
+[codecov-url]: https://codecov.io/github/queckezz/elementx
 
 [downloads-image]: https://img.shields.io/npm/dm/elementx.svg?maxAge=2592000&amp;style=flat-square
 [downloads-url]: https://npmjs.org/package/elementx

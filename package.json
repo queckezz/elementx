@@ -4,10 +4,11 @@
   "description": "Functionally create elements and compose them to a tree quickly",
   "main": "index.js",
   "scripts": {
-    "lint": "standard \"*.js\" \"test/*.js\"",
-    "prepublish": "npm run lint && npm run test",
-    "release": "xyz",
-    "test": "tape test/*.js | tap-spec"
+    "release": "run-s test:* xyz",
+    "test": "run-s test:*",
+    "test:lint": "standard",
+    "test:run": "tape test/*.js | tap-spec",
+    "test:cov": "istanbul cover test/index.js"
   },
   "keywords": [
     "hyperscript",
@@ -35,7 +36,9 @@
     "svg-tag-names": "^1.0.0"
   },
   "devDependencies": {
+    "istanbul": "^0.4.5",
     "morphdom": "^1.3.1",
+    "npm-run-all": "^3.1.0",
     "serialize-dom": "^3.0.3",
     "standard": "^7.0.1",
     "tap-spec": "^4.1.1",
