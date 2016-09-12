@@ -142,7 +142,7 @@ Conditionally joins class names together. It utilizes JedWatson's awesome [class
 
 #### Inline styles
 
-Converts style objects to an inline string.
+Converts style objects to an inline string. CSS declarations are written camelcased (`text-decoration` becomes `textDecoration`).
 
 ```js
 const style = {
