@@ -205,10 +205,10 @@ Tests are written using JSDOM.
 [codecov-image]: https://img.shields.io/codecov/c/github/queckezz/elementx/master.svg?style=flat-square
 [codecov-url]: https://codecov.io/github/queckezz/elementx
 
-[downloads-image]: https://img.shields.io/npm/dm/elementx.svg?maxAge=2592000&amp;style=flat-square
+[downloads-image]: https://img.shields.io/npm/dm/elementx.svg?tyle=flat-square
 [downloads-url]: https://npmjs.org/package/elementx
 
-[david-image]: http://img.shields.io/david/queckezz/elementx.svg?style=flat-square
+[david-image]: https://img.shields.io/npm/dm/elementx.svg?style=flat-square
 [david-url]: https://david-dm.org/queckezz/elementx
 
 [standard-image]: https://img.shields.io/badge/code-standard-brightgreen.svg?style=flat-square
