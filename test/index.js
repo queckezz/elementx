@@ -120,6 +120,12 @@ test('decorate', (t) => {
   t.end()
 })
 
+test('default decorate does nothing', (t) => {
+  const { span } = decorate()
+  t.equal(serialize(span({ class: 'test' })), '<span class="test"></span>')
+  t.end()
+})
+
 test('ignore null as children', (t) => {
   const node1 = div([p('hello'), null])
   const node2 = div([null])
