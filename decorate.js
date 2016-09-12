@@ -25,7 +25,6 @@ function decorateElement (decorate) {
       : document.createElement(obj.node)
 
     for (var key in obj.attrs) {
-      if (!obj.attrs.hasOwnProperty(key)) continue
       var attr
 
       // if attr is `className`, rewrite to `class` otherwise decorate as usual
