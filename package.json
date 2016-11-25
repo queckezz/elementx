@@ -2,7 +2,7 @@
   "name": "elementx",
   "version": "2.6.0",
   "description": "Functionally create elements and compose them to a tree quickly",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "release": "run-s test:* && xyz",
     "test": "run-s test:*",
