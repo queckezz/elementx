@@ -1,8 +1,7 @@
 
 const tags = require('svg-tag-names')
 
-module.exports = isSvgElement
+const isSvgElement = (tag) =>
+  tags.indexOf(tag) !== -1
 
-function isSvgElement (tag) {
-  return tags.indexOf(tag) !== -1
-}
+module.exports = isSvgElement

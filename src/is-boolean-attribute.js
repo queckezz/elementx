@@ -1,6 +1,4 @@
 
-module.exports = isBooleanAttribute
-
 const attrs = [
   'allowfullscreen',
   'async',
@@ -37,6 +35,7 @@ const attrs = [
   'spellcheck'
 ]
 
-function isBooleanAttribute (attr) {
-  return attrs.indexOf(attr) !== -1
-}
+const isBooleanAttribute = (attr) =>
+  attrs.indexOf(attr) !== -1
+
+module.exports = isBooleanAttribute
