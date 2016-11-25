@@ -1,6 +1,6 @@
 {
   "name": "elementx",
-  "version": "2.6.0",
+  "version": "3.0.0-beta.1",
   "description": "Functionally create elements and compose them to a tree quickly",
   "main": "lib/index.js",
   "scripts": {
