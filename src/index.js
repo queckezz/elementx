@@ -1,25 +1,50 @@
 
-var hyphenate = require('@f/hyphenate')
-var decorate = require('./decorate')
-var cn = require('classnames')
+const _createElement = require('./create-element')
+const helpers = require('hyperscript-helpers')
+const parse = require('parse-hyperscript')
+const hyphenate = require('@f/hyphenate')
+const cn = require('classnames')
 
-module.exports = decorate(function (key, value) {
+const toInlineStyle = (def) => Object.keys(def)
+  .map((prop) => hyphenate(prop) + ':' + def[prop])
+  .join(';')
+
+const idTransform = (key, val) => val
+
+const defaultTransformAttrs = (key, val) => {
   switch (key) {
+    case 'className':
+      return defaultTransformAttrs('class', val)
     case 'class':
-      return cn(value)
+      return [key, cn(val)]
     case 'style':
-      return typeof value !== 'string'
-        ? toInlineStyle(value)
-        : value
+      return [
+        key,
+        typeof val !== 'string'
+          ? toInlineStyle(val)
+          : val
+      ]
     default:
-      return value
+      return [key, val]
   }
-})
-
-function toInlineStyle (def) {
-  return Object.keys(def)
-    .map(function (prop) {
-      return hyphenate(prop) + ':' + def[prop]
-    })
-    .join(';')
 }
+
+const createElementx = (transformAttrs = idTransform) => {
+  function createElement () {
+    return _createElement(
+      (key, val) => transformAttrs(key, defaultTransformAttrs(key, val)),
+      parse(arguments)
+    )
+  }
+
+  return Object.assign({}, helpers(createElement), {
+    h: createElement,
+    createElement
+  })
+}
+
+Object.assign(
+  module.exports,
+  createElementx(),
+  { createElementx }
+)

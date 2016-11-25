@@ -10,7 +10,7 @@
 [![js standard style][standard-image]][standard-url]
 [![downloads per month][downloads-image]][downloads-url]
 
-> ​:zap:​ Functionally create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements and compose them to a tree quickly.
+> ​:zap:​ Functionally create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements and compose them quickly.
 
 This module is an alternative to [jsx](https://facebook.github.io/react/docs/jsx-in-depth.html) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
 
@@ -117,7 +117,7 @@ const { h } = require('elementx')
 const node = h('h1', 'text')
 
 console.log(node.outerHTML)
-/* 
+/*
  * ->
  * <h1>text</h1>
  */
@@ -156,33 +156,34 @@ const node = h1({ style }, 'hello!')
 
 ### Decorating attributes
 
-To process an attribute further you can use the `decorate` submodule which allows you to hook into them:
+To add custom behaviour to an attibute, you can create your own set of element functions using `createElementx(decorator)`. *decorator* is a **function** which receives both the attributes `key` and `value`. You need to return a tuple of `[key, val]` in all cases.
+
+Here for example we'll modify the attributes `style` property, stringifying each style object and keeping String values. Imagine `toInlineStyle` as a functions which does the convertion.
 
 ```js
-const decorate = require('elementx/decorate')
+const { createElementx } = require('elementx')
 
 // automatically inlines style objects. Make sure to return the original value
 // if you don't modify anything.
-const { h1, div } = decorate((attr, value) => {
-    case 'style':
-      return typeof value !== 'string'
-        ? toInlineStyle(value)
-        : value
+const { h1, div } = createElementx((key, val) => {
+  case 'style':
+    return [
+      key,
+        typeof val !== 'string'
+          ? toInlineStyle(val)
+          : val
+    ]
     default:
-      return value
+      return [key, val]
 })
 
-function render ({ backgroundColor }) {
-  const style = { color: 'red', backgroundColor }
-  return div([
-    h1({ style })
-  ])
-}
+const render = ({ backgroundColor }) =>
+  h1({ style: { color: 'red', backgroundColor } })
 ```
 
 ## External tools
 
-* [html-to-hyperscript](html-to-hyperscript.paqmind.com) - Webservice to convert HTML to hyperscript
+* [html-to-hyperscript](html-to-hyperscript.paqmind.com) - Web-Service to convert HTML to hyperscript
 
 ## Tests
 

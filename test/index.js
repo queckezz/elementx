@@ -1,7 +1,6 @@
 
-const { input, button, div, h1, p, h } = require('..')
+const { createElementx, input, button, div, h1, p, h } = require('../src')
 const serialize = require('serialize-dom')
-const decorate = require('../decorate')
 const tsml = require('tsml')
 const test = require('tape')
 
@@ -108,24 +107,6 @@ test('supports className as an alias for class', (t) => {
   t.end()
 })
 
-test('decorate', (t) => {
-  const { span } = decorate((attr, value) => {
-    if (attr === 'class') {
-      return 'DECORATED'
-    }
-  })
-
-  const node = span({ class: 'hello world' })
-  t.equal(serialize(node), '<span class="DECORATED"></span>')
-  t.end()
-})
-
-test('default decorate does nothing', (t) => {
-  const { span } = decorate()
-  t.equal(serialize(span({ class: 'test' })), '<span class="test"></span>')
-  t.end()
-})
-
 test('ignore null as children', (t) => {
   const node1 = div([p('hello'), null])
   const node2 = div([null])
@@ -174,5 +155,17 @@ test('supports svg attributes', (t) => {
 test('does not add unknown namespace attributes', (t) => {
   const node = h('use', { 'randomnamespace:href': '#test' })
   t.equal(node.attributes[0].ns, null)
+  t.end()
+})
+
+test('decorates attributes', (t) => {
+  const { span } = createElementx((key, val) => {
+    if (key === 'magic-attr') {
+      return [key, 'DECORATED']
+    }
+  })
+
+  const node = span({ 'magic-attr': 'hello world' })
+  t.equal(serialize(node), '<span magic-attr="DECORATED"></span>')
   t.end()
 })
