@@ -9,6 +9,7 @@
 [![license][license-image]][license-url]
 [![js standard style][standard-image]][standard-url]
 [![downloads per month][downloads-image]][downloads-url]
+[![unfancy javascript][unfancy-js-image]][unfancy-js-url]
 
 > ​:zap:​ Functionally create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements and compose them quickly.
 
@@ -42,12 +43,12 @@ div([
 ## Usage
 
 ```js
-const { div, h1, a } = require('elementx')
+var h = require('elementx')
 
-const tree = div('.container.p2#js-root', [
-  h1('.title', 'This is a title'),
-  div({ style: 'background-color: red;' }, [
-    a({ href: 'http://github.com' }, 'Github')
+var tree = h.div('.container.p2#js-root', [
+  h.h1('.title', 'This is a title'),
+  h.div({ style: 'background-color: red;' }, [
+    h.a({ href: 'http://github.com' }, 'Github')
   ])
 ])
 
@@ -68,7 +69,8 @@ console.log(tree.outerHTML)
 Each [element](https://github.com/ohanhi/hyperscript-helpers/blob/master/src/index.js#L26-L38) in the DOM is exposed as a function when requiring `elementx`.
 
 ```js
-const { div, h1, p, button } = require('elementx')
+// using destructuring
+var { div, h1, p, button } = require('elementx')
 ```
 
 These functions have the following syntax:
@@ -92,9 +94,9 @@ This module aims to be just the element creation layer. It can be used with any 
 SVG works as expected. Sets the appropriate namespace for both elements and attributes. All SVG tags can only be created with the `h`-helper:
 
 ```js
-const { svg, h } = require('elementx')
+var h = require('elementx')
 
-const node = svg({
+const node = h.svg({
   viewBox: '0 0 0 32 32',
   fill: 'currentColor',
   height: '32px',
@@ -111,7 +113,7 @@ document.body.appendChild(node)
 Sometimes you need to fall back to the traditional `createElement(tag, attributes, children)` (aliased to `h`), for example svg tags.
 
 ```js
-const { h } = require('elementx')
+var h = require('elementx')
 // -> or { createElement }
 
 const node = h('h1', 'text')
@@ -128,57 +130,11 @@ console.log(node.outerHTML)
 All [HTML DOM Events](https://developer.mozilla.org/en-US/docs/Web/Events) can be attached. The casing of the event name doesn't matter (`onClick`, `onclick`, `ONCLICK` etc.)
 
 ```js
-const node = button({ onClick: () => console.log('button has been clicked') })
-document.body.appendChild(node)
-```
-
-### Built-in Sugar
-
-This module includes some sugar which is essential to most single page applications today. If you feel like they add to much weight, you can always opt-out and require `elementx/decorate` for the barebones implementation.
-
-#### Classes
-
-Conditionally joins class names together. It utilizes JedWatson's awesome [classnames](https://github.com/JedWatson/classnames). Visit the [usage docs](https://github.com/JedWatson/classnames#usage) for more information.
-
-#### Inline styles
-
-Converts style objects to an inline string. CSS declarations are written camelcased (`text-decoration` becomes `textDecoration`).
-
-```js
-const style = {
-  textDecoration: 'underline',
-  fontSize: '56px'
-}
-
-const node = h1({ style }, 'hello!')
-// -> <h1 style='text-decoration:underline;font-size:56px;'>hello!</h1>
-```
-
-### Decorating attributes
-
-To add custom behaviour to an attibute, you can create your own set of element functions using `createElementx(decorator)`. *decorator* is a **function** which receives both the attributes `key` and `value`. You need to return a tuple of `[key, val]` in all cases.
-
-Here for example we'll modify the attributes `style` property, stringifying each style object and keeping String values. Imagine `toInlineStyle` as a functions which does the convertion.
-
-```js
-const { createElementx } = require('elementx')
-
-// automatically inlines style objects. Make sure to return the original value
-// if you don't modify anything.
-const { h1, div } = createElementx((key, val) => {
-  case 'style':
-    return [
-      key,
-        typeof val !== 'string'
-          ? toInlineStyle(val)
-          : val
-    ]
-    default:
-      return [key, val]
+var node = h.button({
+  onClick: () => console.log('button has been clicked')
 })
 
-const render = ({ backgroundColor }) =>
-  h1({ style: { color: 'red', backgroundColor } })
+document.body.appendChild(node)
 ```
 
 ## External tools
@@ -186,8 +142,6 @@ const render = ({ backgroundColor }) =>
 * [html-to-hyperscript](html-to-hyperscript.paqmind.com) - Web-Service to convert HTML to hyperscript
 
 ## Tests
-
-Tests are written using JSDOM.
 
 ```bash
 > npm test
@@ -214,6 +168,9 @@ Tests are written using JSDOM.
 
 [standard-image]: https://img.shields.io/badge/code-standard-brightgreen.svg?style=flat-square
 [standard-url]: https://github.com/feross/standard
+
+[unfancy-js-image]: img.shields.io/badge/javascript-unfancy-ff69b4.svg?style=flat-square
+[unfancy-js-url]: https://github.com/yoshuawuyts/tiny-guide-to-non-fancy-node
 
 [license-image]: http://img.shields.io/npm/l/elementx.svg?style=flat-square
 [license-url]: ./license

@@ -1,8 +1,8 @@
 
-const { createElementx, input, button, div, h1, p, h } = require('../src')
 const serialize = require('serialize-dom')
 const tsml = require('tsml')
 const test = require('tape')
+const h = require('./')
 
 test('create nodes', (t) => {
   t.equal(serialize(h('h1')), '<h1></h1>', 'empty element')
@@ -10,22 +10,6 @@ test('create nodes', (t) => {
     serialize(h('h1', 'hello world')),
     '<h1>hello world</h1>',
     'text node'
-  )
-
-  t.end()
-})
-
-test('id and class shorthands', (t) => {
-  t.equal(
-    serialize(h('h1.title.bold', 'text')),
-    '<h1 class="title bold">text</h1>',
-    'class'
-  )
-
-  t.equal(
-    serialize(h('h1#some-id', 'text')),
-    '<h1 id="some-id">text</h1>',
-    'id'
   )
 
   t.end()
@@ -70,16 +54,16 @@ test('create nested nodes with all different kinds of combinations', (t) => {
 })
 
 test('hyperscript helpers', (t) => {
-  const tree = div({ id: 'js-root' }, [
-    h1('.title', 'Hello World!'),
-    p('This is a description'),
-    button('Click!')
+  const tree = h.div({ id: 'js-root' }, [
+    h.h1('Hello World!'),
+    h.p({ class: 'test' }, 'This is a description'),
+    h.button('Click!')
   ])
 
   t.equal(serialize(tree), tsml`
     <div id="js-root">
-      <h1 class="title">Hello World!</h1>
-      <p>This is a description</p>
+      <h1>Hello World!</h1>
+      <p class="test">This is a description</p>
       <button>Click!</button>
     </div>
   `)
@@ -88,7 +72,7 @@ test('hyperscript helpers', (t) => {
 })
 
 test('supports boolean attributes', (t) => {
-  const tree = input({
+  const tree = h('input', {
     type: 'checkbox',
     autofocus: true,
     checked: false
@@ -101,17 +85,11 @@ test('supports boolean attributes', (t) => {
   t.end()
 })
 
-test('supports className as an alias for class', (t) => {
-  const node = p({ className: 'test-class' })
-  t.equal(serialize(node), '<p class="test-class"></p>')
-  t.end()
-})
-
 test('ignore null as children', (t) => {
-  const node1 = div([p('hello'), null])
-  const node2 = div([null])
-  const node3 = div([undefined])
-  const node4 = div([undefined, null, p('hello')])
+  const node1 = h('div', [h('p', 'hello'), null])
+  const node2 = h('div', [null])
+  const node3 = h('div', [undefined])
+  const node4 = h('div', [undefined, null, h('p', 'hello')])
 
   t.equal(serialize(node1), '<div><p>hello</p></div>')
   t.equal(serialize(node2), '<div></div>')
@@ -122,27 +100,14 @@ test('ignore null as children', (t) => {
 
 test('adds event handlers', (t) => {
   const handler = () => 'clicked'
-  const node1 = button({ onclick: handler })
+  const node1 = h('button', { onclick: handler })
   t.equal(node1.onclick, handler)
   t.equal(node1.onclick(), 'clicked')
 
   // custom attribute casing
-  const node2 = button({ onSubmit: handler })
+  const node2 = h('button', { onSubmit: handler })
   t.equal(node2.onsubmit, handler)
   t.equal(node2.onsubmit(), 'clicked')
-  t.end()
-})
-
-test('supports classnames-like syntax', (t) => {
-  const tree = p({ class: ['one', { two: true, three: false }] })
-  t.equal(serialize(tree), '<p class="one two"></p>')
-  t.end()
-})
-
-test('supports inline style objects', (t) => {
-  const style = { backgroundColor: 'red' }
-  const tree = p({ style })
-  t.equal(serialize(tree), '<p style="background-color:red"></p>')
   t.end()
 })
 
@@ -155,17 +120,5 @@ test('supports svg attributes', (t) => {
 test('does not add unknown namespace attributes', (t) => {
   const node = h('use', { 'randomnamespace:href': '#test' })
   t.equal(node.attributes[0].ns, null)
-  t.end()
-})
-
-test('decorates attributes', (t) => {
-  const { span } = createElementx((key, val) => {
-    if (key === 'magic-attr') {
-      return [key, 'DECORATED']
-    }
-  })
-
-  const node = span({ 'magic-attr': 'hello world' })
-  t.equal(serialize(node), '<span magic-attr="DECORATED"></span>')
   t.end()
 })
