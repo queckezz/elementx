@@ -8,5 +8,4 @@ install:
   - npm install -g codecov
 script:
   - npm test
-  - nyc report --reporter=text-lcov
-  - codecov
+  - nyc report --reporter=text-lcov | codecov
