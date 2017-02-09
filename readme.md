@@ -1,6 +1,8 @@
 
 ![logo](./logo.png)
 
+> ​:zap:​ Create complex [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements/trees using a functional approach.
+
 [![npm version][version-image]][version-url]
 [![build status][travis-image]][travis-url]
 [![test coverage][codecov-image]][codecov-url]
@@ -9,8 +11,6 @@
 [![js standard style][standard-image]][standard-url]
 [![downloads per month][downloads-image]][downloads-url]
 [![unfancy javascript][unfancy-js-image]][unfancy-js-url]
-
-> ​:zap:​ FCreate complex [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements/trees using a functional approach.
 
 This module provides an alternative to [JSX](https://facebook.github.io/jsx/) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
 
@@ -42,7 +42,7 @@ div(
 > npm install elementx
 ```
 
-## Usage
+## Example
 
 ```js
 const { div, h1, a } = require('elementx')
