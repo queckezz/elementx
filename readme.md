@@ -16,11 +16,13 @@
 This module is an alternative to [jsx](https://facebook.github.io/react/docs/jsx-in-depth.html) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
 
 ```js
-div([
-  h1('.bold', 'elementx'),
-  h2('#subtitle', 'Create a DOM tree with ease'),
-  button({ href: 'http://ghub.io/elementx' }, 'Open'),
-  ul(['simple', 'functional', 'fast'].map(key => li(key)))
+const h = require('elementx')
+
+h.div([
+  h.h1('.bold', 'elementx'),
+  h.h2('#subtitle', 'Create a DOM tree with ease'),
+  h.button({ href: 'http://ghub.io/elementx' }, 'Open'),
+  h.ul(['simple', 'functional', 'fast'].map(key => li(key)))
 ])
 ```
 
@@ -43,9 +45,9 @@ div([
 ## Usage
 
 ```js
-var h = require('elementx')
+const h = require('elementx')
 
-var tree = h.div('.container.p2#js-root', [
+const tree = h.div('.container.p2#js-root', [
   h.h1('.title', 'This is a title'),
   h.div({ style: 'background-color: red;' }, [
     h.a({ href: 'http://github.com' }, 'Github')
@@ -66,11 +68,11 @@ console.log(tree.outerHTML)
 
 ## Getting Started
 
-Each [element](https://github.com/ohanhi/hyperscript-helpers/blob/master/src/index.js#L26-L38) in the DOM is exposed as a function when requiring `elementx`.
+Each [HTML tag](http://ghub.io/html-tag-names) is exposed as a function when requiring `elementx`.
 
 ```js
 // using destructuring
-var { div, h1, p, button } = require('elementx')
+const { div, h1, p, button } = require('elementx')
 ```
 
 These functions have the following syntax:
@@ -94,9 +96,9 @@ This module aims to be just the element creation layer. It can be used with any 
 SVG works as expected. Sets the appropriate namespace for both elements and attributes. All SVG tags can only be created with the `h`-helper:
 
 ```js
-var h = require('elementx')
+const { svg } = require('elementx')
 
-const node = h.svg({
+const node = svg({
   viewBox: '0 0 0 32 32',
   fill: 'currentColor',
   height: '32px',
@@ -113,8 +115,7 @@ document.body.appendChild(node)
 Sometimes you need to fall back to the traditional `createElement(tag, attributes, children)` (aliased to `h`), for example svg tags.
 
 ```js
-var h = require('elementx')
-// -> or { createElement }
+const h = require('elementx')
 
 const node = h('h1', 'text')
 
@@ -130,7 +131,7 @@ console.log(node.outerHTML)
 All [HTML DOM Events](https://developer.mozilla.org/en-US/docs/Web/Events) can be attached. The casing of the event name doesn't matter (`onClick`, `onclick`, `ONCLICK` etc.)
 
 ```js
-var node = h.button({
+const node = h.button({
   onClick: () => console.log('button has been clicked')
 })
 
@@ -169,7 +170,7 @@ document.body.appendChild(node)
 [standard-image]: https://img.shields.io/badge/code-standard-brightgreen.svg?style=flat-square
 [standard-url]: https://github.com/feross/standard
 
-[unfancy-js-image]: img.shields.io/badge/javascript-unfancy-ff69b4.svg?style=flat-square
+[unfancy-js-image]: https://img.shields.io/badge/javascript-unfancy-ff69b4.svg?style=flat-square
 [unfancy-js-url]: https://github.com/yoshuawuyts/tiny-guide-to-non-fancy-node
 
 [license-image]: http://img.shields.io/npm/l/elementx.svg?style=flat-square

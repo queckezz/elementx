@@ -9,13 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 744.09448819 1052.3622047"
+   width="61.808357mm"
+   height="39.11578mm"
+   viewBox="0 0 219.00599 138.59922"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="logo.svg">
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="C:\Users\FEID\dev\elementx\logo.png"
+   inkscape:export-xdpi="119.787"
+   inkscape:export-ydpi="119.787">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -25,17 +28,23 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.90509668"
-     inkscape:cx="407.74445"
-     inkscape:cy="-92.650395"
+     inkscape:zoom="2.8"
+     inkscape:cx="85.282344"
+     inkscape:cy="44.588163"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
      inkscape:window-width="1920"
      inkscape:window-height="1178"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -51,25 +60,44 @@
   <g
      inkscape:label="Ebene 1"
      inkscape:groupmode="layer"
-     id="layer1">
-    <rect
-       id="rect3340"
-       width="888"
-       height="147.14285"
-       x="0"
-       y="905.21936"
-       style="fill:#1a1a1a" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="335.01468"
-       y="992.99078"
-       id="text3336"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3338"
-         x="335.01468"
-         y="992.99078"
-         style="font-style:normal;font-variant:normal;font-weight:200;font-stretch:normal;line-height:125%;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro Ultra-Light';letter-spacing:3.75999999px;fill:#ffffff">elementx</tspan></text>
+     id="layer1"
+     transform="translate(1.8120232e-6,-913.76298)">
+    <g
+       id="g4216"
+       transform="translate(0,-53.149604)">
+      <text
+         sodipodi:linespacing="125%"
+         id="text4136"
+         y="1051.0417"
+         x="63.886238"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#212529;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Segoe UI';-inkscape-font-specification:'Segoe UI Light';letter-spacing:0.54999709px;fill:#212529;fill-opacity:1"
+           y="1051.0417"
+           x="63.886238"
+           id="tspan4138"
+           sodipodi:role="line">elementx</tspan></text>
+      <rect
+         style="fill:#212529;fill-opacity:1"
+         x="-2.5365967e-005"
+         y="1020.0622"
+         width="32.299999"
+         height="32.299999"
+         id="rect4144" />
+      <rect
+         style="fill:#212529;fill-opacity:1"
+         x="34.499973"
+         y="1020.0622"
+         width="19.4"
+         height="19.4"
+         id="rect4146" />
+      <rect
+         style="fill:#212529;fill-opacity:1"
+         x="34.999977"
+         y="1041.5623"
+         width="10.4"
+         height="10.4"
+         id="rect4150" />
+    </g>
   </g>
 </svg>
