@@ -1,14 +1,13 @@
 {
   "name": "elementx",
   "version": "3.0.0",
-  "description": "Functionally create elements and compose them to a tree quickly",
-  "main": "index.js",
+  "description": "Create complex DOM elements/trees using a functional approach",
+  "main": "dist.js",
   "scripts": {
-    "release": "run-s test:* && xyz",
-    "test": "run-s test:*",
-    "test:lint": "standard",
-    "test:run": "tape test.js | tap-spec",
-    "test:cov": "istanbul cover test.js"
+    "release": "npm run lint && xyz -m X.Y.Z",
+    "test": "nyc ava",
+    "lint": "standard",
+    "prepublish": "buble index.js > dist.js"
   },
   "keywords": [
     "hyperscript",
@@ -29,19 +28,16 @@
   "dependencies": {
     "global-undom": "^0.1.1",
     "html-tag-names": "^1.1.0",
-    "hyperscript-helpers": "^3.0.1",
-    "parse-hyperscript": "^0.5.0",
     "svg-tag-names": "^1.0.0"
   },
   "devDependencies": {
-    "istanbul": "^0.4.5",
-    "npm-run-all": "^3.1.0",
+    "ava": "^0.18.1",
+    "buble": "^0.15.2",
+    "nyc": "^10.1.2",
     "serialize-dom": "^3.0.3",
     "standard": "^7.0.1",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.5.1",
     "tsml": "^1.0.1",
-    "xyz": "^1.0.0"
+    "xyz": "^2.1.0"
   },
   "license": "MIT"
 }

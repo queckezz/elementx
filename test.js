@@ -1,124 +1,149 @@
 
 const serialize = require('serialize-dom')
+const createElement = require('./')
 const tsml = require('tsml')
-const test = require('tape')
-const h = require('./')
+const test = require('ava')
 
-test('create nodes', (t) => {
-  t.equal(serialize(h('h1')), '<h1></h1>', 'empty element')
-  t.equal(
-    serialize(h('h1', 'hello world')),
-    '<h1>hello world</h1>',
-    'text node'
-  )
-
-  t.end()
+test('tag', (t) => {
+  const actual = createElement('h1')
+  const expected = '<h1></h1>'
+  t.is(serialize(actual), expected)
 })
 
-test('create nested nodes', (t) => {
-  const tree = h('div', [
-    h('h1', 'Title'),
-    h('p', 'Paragraph')
-  ])
+test('attributes', (t) => {
+  const actual = createElement('h1', {
+    id: 'header',
+    class: 'big'
+  })
 
-  t.equal(serialize(tree), '<div><h1>Title</h1><p>Paragraph</p></div>')
-  t.end()
+  const expected = '<h1 id="header" class="big"></h1>'
+  t.is(serialize(actual), expected)
 })
 
-test('create node with attributes', (t) => {
-  const node = h('div', { class: 'test', 'data-id': 2 })
-  t.equal(node.getAttribute('class'), 'test', 'reserved keywords')
-  t.equal(node.getAttribute('data-id'), '2', 'data attributes')
-  t.equal(serialize(node), '<div class="test" data-id="2"></div>')
-  t.end()
-})
-
-test('create nested nodes with all different kinds of combinations', (t) => {
-  const tree = h('div', { class: 'full-width p2' }, [
-    h('h1', 'Some text'),
-    h('div', { style: 'background-color: red;' }, [
-      h('a', { href: 'http://github.com' }, 'Github')
-    ])
-  ])
-
-  t.equal(serialize(tree), tsml`
-    <div class="full-width p2">
-      <h1>Some text</h1>
-      <div style="background-color: red;">
-        <a href="http://github.com">Github</a>
-      </div>
-    </div>
-  `)
-
-  t.end()
-})
-
-test('hyperscript helpers', (t) => {
-  const tree = h.div({ id: 'js-root' }, [
-    h.h1('Hello World!'),
-    h.p({ class: 'test' }, 'This is a description'),
-    h.button('Click!')
-  ])
-
-  t.equal(serialize(tree), tsml`
-    <div id="js-root">
-      <h1>Hello World!</h1>
-      <p class="test">This is a description</p>
-      <button>Click!</button>
-    </div>
-  `)
-
-  t.end()
-})
-
-test('supports boolean attributes', (t) => {
-  const tree = h('input', {
+test('boolean attributes', (t) => {
+  const actual = createElement('input', {
     type: 'checkbox',
     autofocus: true,
     checked: false
   })
 
-  t.equal(serialize(tree), tsml`
+  const expected = tsml`
     <input type="checkbox" autofocus="autofocus">
-  `)
+  `
 
-  t.end()
+  t.is(serialize(actual), expected)
 })
 
-test('ignore null as children', (t) => {
-  const node1 = h('div', [h('p', 'hello'), null])
-  const node2 = h('div', [null])
-  const node3 = h('div', [undefined])
-  const node4 = h('div', [undefined, null, h('p', 'hello')])
+test('svg attributes', (t) => {
+  const node = createElement('use', {
+    'xlink:href': '#test'
+  })
 
-  t.equal(serialize(node1), '<div><p>hello</p></div>')
-  t.equal(serialize(node2), '<div></div>')
-  t.equal(serialize(node3), '<div></div>')
-  t.equal(serialize(node4), '<div><p>hello</p></div>')
-  t.end()
+  t.is(node.attributes[0].ns, 'http://www.w3.org/1999/xlink')
 })
 
-test('adds event handlers', (t) => {
+test('unknown namespace attributes', (t) => {
+  const node = createElement('use', {
+    'randomnamespace:href': '#test'
+  })
+
+  t.is(node.attributes[0].ns, null)
+})
+
+test('children', (t) => {
+  const actual = createElement('div',
+    createElement('p'),
+    createElement('p')
+  )
+
+  const expected = tsml`
+    <div>
+      <p></p>
+      <p></p>
+    </div>
+  `
+
+  t.is(serialize(actual), expected)
+})
+
+test('children as a falsy value', (t) => {
+  const actual = createElement('div',
+    undefined,
+    null,
+    createElement('p', 'hello')
+  )
+
+  const expected = tsml`
+    <div>
+      <p>hello</p>
+    </div>
+  `
+
+  t.is(serialize(actual), expected)
+})
+
+test('children as an array', (t) => {
+  const actual = createElement('div', [
+    createElement('p'),
+    createElement('p')
+  ])
+
+  const expected = tsml`
+    <div>
+      <p></p>
+      <p></p>
+    </div>
+  `
+
+  t.is(serialize(actual), expected)
+})
+
+test('children as a text node', (t) => {
+  const actual = createElement('p', 'text')
+  const expected = '<p>text</p>'
+  t.is(serialize(actual), expected)
+})
+
+test('children and attributes', (t) => {
+  const actual = createElement('div', { id: 'wrapper' },
+    createElement('p', '1'),
+    createElement('p', '2')
+  )
+
+  const expected = tsml`
+    <div id="wrapper">
+      <p>1</p>
+      <p>2</p>
+    </div>
+  `
+
+  t.is(serialize(actual), expected)
+})
+
+test('tags as functions', (t) => {
+  const { div, p } = createElement
+
+  const actual = div({ id: 'wrapper' },
+    p('1'),
+    p('2')
+  )
+
+  const expected = tsml`
+    <div id="wrapper">
+      <p>1</p>
+      <p>2</p>
+    </div>
+  `
+
+  t.is(serialize(actual), expected)
+})
+
+test.todo('svg tags as functions')
+
+test('events', (t) => {
   const handler = () => 'clicked'
-  const node1 = h('button', { onclick: handler })
-  t.equal(node1.onclick, handler)
-  t.equal(node1.onclick(), 'clicked')
+  const node = createElement('button', { onClick: handler })
 
-  // custom attribute casing
-  const node2 = h('button', { onSubmit: handler })
-  t.equal(node2.onsubmit, handler)
-  t.equal(node2.onsubmit(), 'clicked')
-  t.end()
-})
-
-test('supports svg attributes', (t) => {
-  const node = h('use', { 'xlink:href': '#test' })
-  t.equal(node.attributes[0].ns, 'http://www.w3.org/1999/xlink')
-  t.end()
-})
-
-test('does not add unknown namespace attributes', (t) => {
-  const node = h('use', { 'randomnamespace:href': '#test' })
-  t.equal(node.attributes[0].ns, null)
-  t.end()
+  t.is(node.onclick, handler)
+  t.is(node.onclick(), 'clicked')
 })

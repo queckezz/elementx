@@ -1,5 +1,4 @@
 
-
 ![logo](./logo.png)
 
 [![npm version][version-image]][version-url]
@@ -11,30 +10,31 @@
 [![downloads per month][downloads-image]][downloads-url]
 [![unfancy javascript][unfancy-js-image]][unfancy-js-url]
 
-> ​:zap:​ Functionally create [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements and compose them quickly.
+> ​:zap:​ FCreate complex [DOM](https://de.wikipedia.org/wiki/Document_Object_Model) elements/trees using a functional approach.
 
-This module is an alternative to [jsx](https://facebook.github.io/react/docs/jsx-in-depth.html) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
+This module provides an alternative to [JSX](https://facebook.github.io/jsx/) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
 
 ```js
-const h = require('elementx')
+const { div, h1, h2, button, ul, li } = require('elementx')
 
-h.div([
-  h.h1('.bold', 'elementx'),
-  h.h2('#subtitle', 'Create a DOM tree with ease'),
-  h.button({ href: 'http://ghub.io/elementx' }, 'Open'),
-  h.ul(['simple', 'functional', 'fast'].map(key => li(key)))
-])
+div(
+  h1('.bold', 'elementx'),
+  h2('#subtitle', 'Create a DOM tree with ease'),
+  button({ href: 'http://ghub.io/elementx' }, 'Open'),
+  ul(
+    ['simple', 'functional', 'fast']
+      .map(key => li(key))
+  )
+)
 ```
 
 ## Features
 
-* Supports creating SVG Elements
-* Convenient element event handling
-* Boolean attributes (like `autofocus: true`)
-* Pluggable API for hooking into specific attributes and modifying them
-* Functional utilities can be used since it's just function composition
-* Weights only `~3 kB` minified and gzipped
-* Can be used with diffing libraries like [morphdom](https://github.com/patrick-steele-idem/morphdom) or [nanomorph](https://github.com/yoshuawuyts/nanomorph) for a unidirectional architecture
+* **Universal** - Works in Node and Browser
+* **SVG Support** - Supports creating SVG Elements
+* **Functional** - Since it's just function composition we can arbitrarily compose them
+* **Small** Only `~3 kB` minified and gzipped
+* **Interoperability** Can be used with diffing libraries like [morphdom](https://github.com/patrick-steele-idem/morphdom), [nanomorph](https://github.com/yoshuawuyts/nanomorph) or anyhting that uses the DOM
 
 ## Installation
 
@@ -45,21 +45,24 @@ h.div([
 ## Usage
 
 ```js
-const h = require('elementx')
+const { div, h1, a } = require('elementx')
 
-const tree = h.div('.container.p2#js-root', [
-  h.h1('.title', 'This is a title'),
-  h.div({ style: 'background-color: red;' }, [
-    h.a({ href: 'http://github.com' }, 'Github')
-  ])
-])
+const node = div(
+  h1({ class: 'title' }, 'This is a title'),
+  div({ class: 'bg-red' },
+    a({ href: 'http://github.com' }, 'Github')
+  )
+)
+
+// mount the tree to the DOM
+document.body.appendChild(node)
 
 console.log(tree.outerHTML)
 /*
  * ->
- * <div class="full-width p2">
- *   <h1>Some text</h1>
- *   <div style="background-color: red;">
+ * <div class="title">
+ *   <h1>This is a title</h1>
+ *   <div class="bg-red">
  *     <a href="http://github.com">Github</a>
  *   </div>
  * </div>

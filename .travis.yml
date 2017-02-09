@@ -1,6 +1,10 @@
 language: node_js
+sudo: false
 node_js:
   - "6"
-sudo: false
-script: "npm test"
-after_script: "npm i -g codecov && codecov"
+  - "7"
+install:
+  - npm install -g codecov
+script:
+  - nyc report --reporter=text-lcov
+  - codecov
