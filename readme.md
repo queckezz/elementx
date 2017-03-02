@@ -32,7 +32,7 @@ div(
 * **Universal** - Works in Node and Browser
 * **SVG Support** - Supports creating SVG Elements
 * **Functional** - Since it's just function composition we can arbitrarily compose them
-* **Small** Only `~3 kB` minified and gzipped
+* **Small** Only `1.99 kB` minified and gzipped
 * **Interoperability** Can be used with diffing libraries like [morphdom](https://github.com/patrick-steele-idem/morphdom), [nanomorph](https://github.com/yoshuawuyts/nanomorph) or anyhting that uses the DOM
 
 ## Installation
