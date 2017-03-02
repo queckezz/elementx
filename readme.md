@@ -10,7 +10,6 @@
 [![license][license-image]][license-url]
 [![js standard style][standard-image]][standard-url]
 [![downloads per month][downloads-image]][downloads-url]
-[![unfancy javascript][unfancy-js-image]][unfancy-js-url]
 
 This module provides an alternative to [JSX](https://facebook.github.io/jsx/) or [template strings](https://github.com/shama/bel) for those who want to build up their DOM trees using plain function composition.
 
