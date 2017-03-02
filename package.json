@@ -3,10 +3,12 @@
   "version": "3.1.0",
   "description": "Create complex DOM elements/trees using a functional approach",
   "main": "dist.js",
+  "license": "MIT",
+  "repository": "queckezz/elementx",
+  "author": "queckezz <fabian.eichenberger@gmail.com>",
   "scripts": {
-    "release": "npm run lint && xyz -m X.Y.Z",
-    "test": "nyc ava",
-    "lint": "standard",
+    "precommit": "npm test",
+    "test": "standard && nyc ava",
     "prepublish": "buble index.js > dist.js"
   },
   "keywords": [
@@ -20,11 +22,6 @@
     "unidirectional",
     "virtual-dom"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/queckezz/elementx"
-  },
-  "author": "queckezz <fabian.eichenberger@gmail.com>",
   "dependencies": {
     "global-undom": "^0.1.1",
     "html-tag-names": "^1.1.0",
@@ -33,11 +30,11 @@
   "devDependencies": {
     "ava": "^0.18.1",
     "buble": "^0.15.2",
+    "husky": "^0.13.1",
     "nyc": "^10.1.2",
     "serialize-dom": "^3.0.3",
     "standard": "^7.0.1",
     "tsml": "^1.0.1",
     "xyz": "^2.1.0"
-  },
-  "license": "MIT"
+  }
 }
