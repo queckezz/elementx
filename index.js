@@ -52,14 +52,12 @@ const setAttribute = (element, key, value) => {
     : element.setAttribute(key, value)
 }
 
-const createElement = (...args) => {
-  let tagName, attrs
+const createElement = (tagName, ...args) => {
+  let attrs
   const children = []
   args.forEach((arg) => {
     if (!arg) {
       return
-    } else if (!tagName && typeof arg === 'string') {
-      tagName = arg
     } else if (!attrs && isPlainObject(arg)) {
       attrs = arg
     } else if (Array.isArray(arg)) {
