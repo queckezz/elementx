@@ -98,6 +98,24 @@ test('children as an array', (t) => {
   t.is(serialize(actual), expected)
 })
 
+test('children as an array with attributes', (t) => {
+  const actual = createElement('div', {
+    class: 'one'
+  }, [
+    createElement('p'),
+    createElement('p')
+  ])
+
+  const expected = tsml`
+    <div class="one">
+      <p></p>
+      <p></p>
+    </div>
+  `
+
+  t.is(serialize(actual), expected)
+})
+
 test('children as a text node', (t) => {
   const actual = createElement('p', 'text')
   const expected = '<p>text</p>'

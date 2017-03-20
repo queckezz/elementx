@@ -33,8 +33,6 @@ const isPlainObject = (obj) =>
 
 const contains = (val, obj) => obj.indexOf(val) !== -1
 
-const arrayify = (val) => Array.isArray(val) ? val : [val]
-
 const getSvgAttributeNamespace = (attr) => {
   const prefix = attr.split(':', 1)[0]
   return namespaces.hasOwnProperty(prefix)
@@ -54,11 +52,20 @@ const setAttribute = (element, key, value) => {
     : element.setAttribute(key, value)
 }
 
-const createElement = (tagName, attrs, ...children) => {
-  if (attrs && !isPlainObject(attrs)) {
-    children = arrayify(attrs).concat(children || [])
-    attrs = null
-  }
+const createElement = (tagName, ...args) => {
+  let attrs
+  const children = []
+  args.forEach((arg) => {
+    if (!arg) {
+      return
+    } else if (!attrs && isPlainObject(arg)) {
+      attrs = arg
+    } else if (Array.isArray(arg)) {
+      children.push(...arg)
+    } else {
+      children.push(arg)
+    }
+  })
 
   const element = createElementTag(tagName)
 
