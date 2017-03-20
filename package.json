@@ -1,6 +1,6 @@
 {
   "name": "elementx",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Create complex DOM elements/trees using a functional approach",
   "main": "dist.js",
   "license": "MIT",
