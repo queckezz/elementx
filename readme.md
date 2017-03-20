@@ -17,8 +17,8 @@ This module provides an alternative to [JSX](https://facebook.github.io/jsx/) or
 const { div, h1, h2, button, ul, li } = require('elementx')
 
 div(
-  h1('.bold', 'elementx'),
-  h2('#subtitle', 'Create a DOM tree with ease'),
+  h1({ class: 'bold' }, 'elementx'),
+  h2({ id: 'subtitle' }, 'Create a DOM tree with ease'),
   button({ href: 'http://ghub.io/elementx' }, 'Open'),
   ul(
     ['simple', 'functional', 'fast']
@@ -80,12 +80,12 @@ const { div, h1, p, button } = require('elementx')
 These functions have the following syntax:
 
 ```js
-tag(selector, attributes, children)
+tag(tagName, attributes, children)
 ```
 
 All arguments are **optional** with at least **one argument needing to be present**. This kind of function overloading allows you to iterate on your DOM structure really fast and reduce visual noise.
 
-* **selector** can be `.title` to append a class or `#id` to give the element an id. These can be mixed as you might expect: `#id.title.pad.red`
+* **tagName** any [valid](https://github.com/wooorm/html-tag-names/blob/master/index.json) html tag
 * **attributes** is an object of dom attributes: `{ href: '#header' }`
 * **children** can be a string for a text node or an array of nodes
 
