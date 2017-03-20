@@ -83,10 +83,6 @@ const createElement = (tagName, ...args) => {
 
   if (children && children.length > 0) {
     children.forEach((child) => {
-      if (!child) {
-        return
-      }
-
       element.appendChild(
          typeof child === 'string'
           ? document.createTextNode(child)
