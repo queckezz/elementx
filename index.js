@@ -41,9 +41,9 @@ const getSvgAttributeNamespace = (attr) => {
 }
 
 const createElementTag = (tagName) => {
-  return contains(tagName, svgTags)
-    ? document.createElementNS('http://www.w3.org/2000/svg', tagName)
-    : document.createElement(tagName)
+  return contains(tagName, htmlTags)
+    ? document.createElement(tagName)
+    : document.createElementNS('http://www.w3.org/2000/svg', tagName)
 }
 
 const setAttribute = (element, key, value) => {
